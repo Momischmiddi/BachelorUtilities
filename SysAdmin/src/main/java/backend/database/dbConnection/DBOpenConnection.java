@@ -1,6 +1,9 @@
 package backend.database.dbConnection;
 import java.sql.Connection;
 import java.sql.Statement;
+
+import backend.database.dbQueries.Init;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -14,15 +17,14 @@ public class DBOpenConnection {
 		Statement statement = createStatement(connection);
 		
 		dbconnection = new DBConnection(connection, statement);
+		
+		new Init(dbconnection);
+		
 		return dbconnection;
 	}
 
 	private Statement createStatement(Connection connection) throws SQLException {
 		Statement statement = connection.createStatement();
-		
-		/*String createTable = "CREATE DATABASE IF NOT EXISTS BachelorUtilities";
-		statement.execute(createTable);
-		System.out.println("Successful created database BachelorUtilities");*/
 		return statement;
 	}
 
@@ -38,35 +40,5 @@ public class DBOpenConnection {
 		return connection;
     }
 	
-	private void test(){
-String url = "jdbc:mysql://localhost:3306/";
-        
-        /**
-         * The MySQL user.
-         */
-        String user = "root";
-        
-        /**
-         * Password for the above MySQL user. If no password has been 
-         * set (as is the default for the root user in XAMPP's MySQL),
-         * an empty string can be used.
-         */
-        String password = "";
-        
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection(url, user, password);
-            
-            Statement stt = con.createStatement();
-            
-     
-            
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-	}
 
 }
