@@ -1,6 +1,21 @@
 package backend.database;
 
 public final class DBStructure {
+	
+	public static enum DBError {
+		//Cannot get the Primary Key from last inserted data
+		NO_PRIMARY_KEY(-1);
+	    private final int value;
+
+	    private DBError(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
+	}
+	
 	//Database
 	public static final String MAIN_DATABASE 					= "BachelorUtilities";
 	

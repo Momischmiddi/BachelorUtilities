@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Topic {
 
+	private int ID;
 	private String title;
 	private String description;
 	private Author author;
@@ -11,6 +12,15 @@ public class Topic {
 	private ArrayList<Date> date;
 	private ExpertOpinion expertOpinion;
 	private SecondOpinion secondOpinion;
+	
+	
+	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
 	public String getTitle() {
 		return title;
 	}
