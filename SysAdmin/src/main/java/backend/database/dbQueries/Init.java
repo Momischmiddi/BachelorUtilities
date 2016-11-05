@@ -127,7 +127,7 @@ public class Init {
 				+ "("
 					+ "ID INT NOT NULL AUTO_INCREMENT,"
 					+ "" + DBStructure.TABLE_SECOND_OPINION_NAME + " VARCHAR(50),"
-					+ "" + DBStructure.TABLE_SECOND_OPINION_NAME + " VARCHAR(25),"
+					+ "" + DBStructure.TABLE_SECOND_OPINION_FORENAME + " VARCHAR(25),"
 					+ "" + DBStructure.TABLE_SECOND_OPINION_OPINION + " VARCHAR(2048),"
 					+ "PRIMARY KEY(ID)"
 				+ ");";

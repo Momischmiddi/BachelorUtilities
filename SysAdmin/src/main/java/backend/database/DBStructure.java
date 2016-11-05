@@ -4,7 +4,10 @@ public final class DBStructure {
 	
 	public static enum DBError {
 		//Cannot get the Primary Key from last inserted data
-		NO_PRIMARY_KEY(-1);
+		NO_PRIMARY_KEY(-20001),
+		INSERT_ERROR(-20002),
+		UPDATE_REFERENCE_TO_TOPIC_ERROR(-20003),
+		SELECT_ERROR(-20004);
 	    private final int value;
 
 	    private DBError(int value) {
