@@ -8,3 +8,24 @@
 #sceneTitle {
 	-fx-font-size: 30px;
 }
+
+.calendarPaneEntry {
+	-fx-border-color: #7596FE;
+	-fx-border-width: 1 0 0 1;
+}
+
+.pane {
+	-fx-border-color: #6495ED;
+	-fx-border-radius: 2, 2, 2, 2;
+	-fx-border-width: 2px;
+}
+
+.scroll-pane>.viewport {
+	-fx-background-color: transparent;
+}
+
+#scrollPane {
+	-fx-fit-to-height: true;
+	-fx-fit-to-width: true;
+	-fx-background-color: transparent;
+}

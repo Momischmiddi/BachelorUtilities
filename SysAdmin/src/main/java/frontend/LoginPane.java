@@ -60,10 +60,7 @@ public class LoginPane extends StackPane {
 		hbBLoginButton.getChildren().add(btnLogin);
 		grid.add(hbBLoginButton, 0, 5, 2, 1);
 		
-		
-
 		primaryStage.setScene(new IExtendedScene(primaryStage, grid, 400, 200));
-		primaryStage.show();
 	}
 
 	private void login() {

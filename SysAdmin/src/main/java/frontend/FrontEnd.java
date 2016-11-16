@@ -14,6 +14,7 @@ public class FrontEnd extends Application {
 		// gotta build up connection first to check login credentials
 		primaryStage.setAlwaysOnTop(true);
 		primaryStage.setTitle("BachelorUtilities");
+		primaryStage.setOpacity(0.92);
 		primaryStage.setMaximized(true);
 		
 		new LoginPane(primaryStage);

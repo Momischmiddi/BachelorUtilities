@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class IExtendedScene extends Scene {
@@ -23,6 +22,8 @@ public class IExtendedScene extends Scene {
 	
 
 	private void init(Stage primaryStage) {
+		primaryStage.setMaximized(true);
+		
 		String cssFile = getClass().getResource("NewFile.css").toExternalForm();
 		getStylesheets().add(cssFile);
 
@@ -34,5 +35,6 @@ public class IExtendedScene extends Scene {
 				}
 			}
 		});
+		primaryStage.show();
 	}
 }
