@@ -1,7 +1,5 @@
 package frontend;
 
-import java.awt.Window;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -21,7 +19,6 @@ public class IExtendedScene extends Scene {
 	}
 	
 	private void init(Stage primaryStage) {
-		primaryStage.setAlwaysOnTop(true);
 		primaryStage.setTitle("BachelorUtilities");
 		primaryStage.setOpacity(0.92);
 		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);

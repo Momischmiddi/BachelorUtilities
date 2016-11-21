@@ -9,9 +9,30 @@
 	-fx-font-size: 30px;
 }
 
-.calendarPaneEntry {
-	-fx-border-color: #7596FE;
-	-fx-border-width: 1 0 0 1;
+.date-picker-popup {
+     -fx-background-color:
+        linear-gradient(to bottom,
+            derive(red,-17%),
+            derive(yellow,-30%)
+        ),
+    -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 1;
+    -fx-alignment: CENTER; /* VBox */
+    -fx-spacing: 10; /* VBox */
+    -fx-min-width: 900px;
+    -fx-min-height: 600px;
+    -fx-padding: 0.83333em; /* 1 1 1 1 */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.date-picker-popup > * > .date-cell {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1, 2;
+    -fx-padding: 0;
+    -fx-min-height: 50px;
+    -fx-alignment: BASELINE_CENTER;
+    -fx-opacity: 1.0;
 }
 
 .pane {

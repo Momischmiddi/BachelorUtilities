@@ -1,15 +1,16 @@
 package frontend;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
+import com.sun.javafx.scene.control.skin.DatePickerSkin;
+
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,9 +22,10 @@ public class MainPane extends StackPane {
 	private VBox listPane = new VBox();
 	private HBox toolBarPane = new HBox();
 	private GridPane calendarPane = new GridPane();
-	private GridPane detailPane = new GridPane();
+	private BorderPane detailPane = new BorderPane();
 	private double height;
 	private double width;
+	private Label currentDateInfo = new Label("Hello There!");
 	
 	public MainPane(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -36,12 +38,11 @@ public class MainPane extends StackPane {
 		
 		mainContainer.getStyleClass().add("pane");
 		mainContainer.setPrefSize(width, height);
-		
-		mainContainer.setBottom(initDetailPane());
 		mainContainer.setLeft(initNaviPane());
 		mainContainer.setRight(initListPane());
 		mainContainer.setTop(initCalendarHeader());
 		mainContainer.setCenter(initCalendarPane());
+		mainContainer.setBottom(initDetailPane());
 
 		primaryStage.setScene(new IExtendedScene(primaryStage, mainContainer));
 	}
@@ -53,10 +54,16 @@ public class MainPane extends StackPane {
 		return toolBarPane;
 	}
 
-	private GridPane initDetailPane() {
+	private BorderPane initDetailPane() {
 		detailPane.setPrefSize(width / 2, height * 0.2);
 		detailPane.getStyleClass().add("pane");
 		
+		VBox vbox = new VBox(10);
+		vbox.setPrefSize(width, height * 0.2 / 4);
+		currentDateInfo.setMinSize(width, height * 0.2 / 4);
+		vbox.getChildren().add(currentDateInfo);
+		
+		detailPane.getChildren().add(vbox);
 		return detailPane;
 	}
 
@@ -81,21 +88,11 @@ public class MainPane extends StackPane {
 	private GridPane initCalendarPane() {
 		calendarPane.setPrefSize(width * 0.6, height * 0.8);
 		calendarPane.getStyleClass().add("pane");
-		Calendar calendar = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-		int dayCount = 1;
-		for (int weeks = 0; weeks < 5; weeks++) {
-			for (int days = 0; days < 7; days++) {
-				Pane pane = new Pane();
-				pane.getStyleClass().add("calendarPaneEntry");
-				pane.setPrefSize(calendarPane.getPrefWidth() / 7 - 1.715, height * 0.8 / 5);
-
-				if (dayCount <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-					Label label = new Label(Integer.toString(dayCount++));
-					pane.getChildren().add(label);
-				}
-				calendarPane.add(pane, days, weeks);
-			}
-		}
+		  
+		DatePickerSkin datePickerSkin = new DatePickerSkin(new DatePickerExtended(LocalDate.now(), currentDateInfo));
+		Node popupContent = datePickerSkin.getPopupContent();
+		
+        calendarPane.getChildren().add(popupContent);
 		return calendarPane;
 	}
 
