@@ -1,5 +1,7 @@
 package frontend;
 
+import java.awt.Window;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -60,7 +62,7 @@ public class LoginPane extends StackPane {
 		hbBLoginButton.getChildren().add(btnLogin);
 		grid.add(hbBLoginButton, 0, 5, 2, 1);
 		
-		primaryStage.setScene(new IExtendedScene(primaryStage, grid, 400, 200));
+		primaryStage.setScene(new IExtendedScene(primaryStage, grid, 500, 300));
 	}
 
 	private void login() {
