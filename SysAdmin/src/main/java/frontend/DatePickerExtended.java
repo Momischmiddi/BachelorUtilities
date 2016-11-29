@@ -15,13 +15,14 @@ public class DatePickerExtended extends DatePicker {
 	public DatePickerExtended(LocalDate now, Label label) {
 		super(now);
 		this.label = label;
+		setShowWeekNumbers(false);
 		initSelectionListener();
 	}
 
 	private void initSelectionListener() {
 		setOnAction(e -> {
 			String currentDateAsString = getValue().format(dateFormatter).toString();
-			label.setText(currentDateAsString);
+			label.setText("Ausgewähltes Datum: " + currentDateAsString);
 		});
 	}
 }
