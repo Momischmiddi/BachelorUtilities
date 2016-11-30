@@ -1,6 +1,6 @@
 .root {
 	-fx-background-color: #CCFF99;
-	-fx-background-image: url("Images/blue_texture-wallpaper-1920x1080.jpg");
+	-fx-background-image: url("/Images/blue_texture-wallpaper-1920x1080.jpg");
 	-fx-background-size: cover;
 	-fx-font-family: "Tahoma";
 }

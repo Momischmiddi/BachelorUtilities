@@ -1,5 +1,6 @@
 package frontend;
 
+import connInit.ConnectionInit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -64,6 +65,7 @@ public class LoginPane extends StackPane {
 	}
 
 	private void login() {
+		new ConnectionInit().init();
 		new MainPane(primaryStage);
 	}
 
