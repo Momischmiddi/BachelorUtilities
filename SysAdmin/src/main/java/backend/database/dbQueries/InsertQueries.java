@@ -2,7 +2,12 @@ package backend.database.dbQueries;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.sql.Statement;
+=======
+
+import com.mysql.jdbc.Statement;
+>>>>>>> 786630ce2081233003062d48b0f71815360aa432
 
 import backend.database.DBStructure;
 import backend.database.dbClasses.Author;
@@ -12,8 +17,10 @@ import backend.database.dbClasses.Grade;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
+<<<<<<< HEAD
 import backend.database.dbExceptions.NoTitleException;
-
+=======
+import backend.database.dbExceptions.*;
 public class InsertQueries {
 	
 	private DBConnection dbconnection;
