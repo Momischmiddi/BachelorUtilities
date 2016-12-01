@@ -1,18 +1,16 @@
 package backend.database.dbQueries;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import backend.database.DBStructure;
 import backend.database.dbConnection.DBConnection;
-import backend.database.dbConnection.DBOpenConnection;
 
 public class Init {
 
 	private DBConnection dbconnection;
 	
-	public Init(DBConnection dbconnection) throws Exception{
+	public Init(DBConnection dbconnection) {
 		this.dbconnection = dbconnection;
 		createDatabase();
 		createTables();

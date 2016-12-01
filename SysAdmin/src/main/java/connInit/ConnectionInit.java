@@ -2,11 +2,6 @@ package connInit;
 
 import java.util.ArrayList;
 
-import backend.database.dbClasses.Author;
-import backend.database.dbClasses.Date;
-import backend.database.dbClasses.ExpertOpinion;
-import backend.database.dbClasses.Grade;
-import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbConnection.DBCredentials;
@@ -20,7 +15,7 @@ public class ConnectionInit {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
-		credentials.setPort(3306);
+		credentials.setPort(8080);
 		credentials.setDatabase("BachelorUtilities");
 		credentials.setUsername("root");
 		credentials.setPassword("");

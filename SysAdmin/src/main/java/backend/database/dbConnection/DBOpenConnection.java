@@ -10,35 +10,42 @@ import java.sql.SQLException;
 
 public class DBOpenConnection {
 
-	public DBConnection createConnection(DBCredentials credentials) throws Exception{
-		DBConnection dbconnection;
+	public DBConnection createConnection(DBCredentials credentials) {
+		DBConnection dbconnection = null;
 		
+
 		Connection connection = openConnection(credentials);
-		Statement statement = createStatement(connection);
-		
-		dbconnection = new DBConnection(connection, statement);
-		
-		new Init(dbconnection);
-		
-		return dbconnection;
+
+		try {
+			dbconnection = new DBConnection(connection, createStatement(connection));
+			new Init(dbconnection);
+			return dbconnection;
+		} catch (SQLException e) {
+			System.out.println("Error establishing connection with credentials:\nHostAdress " +
+								credentials.getHostAdress() + "\nPassword: " + 
+								credentials.getPassword() + "\nPort" + 
+								credentials.getPort() + "\nUserName" + 
+								credentials.getUsername() + "\nDataBase" + credentials.getDatabase());
+			System.exit(-1);
+		}
+		return null;
 	}
 
 	private Statement createStatement(Connection connection) throws SQLException {
-		Statement statement = connection.createStatement();
-		return statement;
+		return connection.createStatement();
 	}
 
-	private Connection openConnection(DBCredentials credentials) throws Exception {
+	private Connection openConnection(DBCredentials credentials) {
 		String url = "jdbc:mysql://" + credentials.getHostAdress() + 
-				":"+ credentials.getPort() + "/"+credentials.getDatabase();
+				":"+ credentials.getPort() + 
+				"/"+credentials.getDatabase();
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection connection = DriverManager.getConnection(url, 
-            		credentials.getUsername(), 
-            		credentials.getPassword());
-        
-		return connection;
+		Connection connection = null;
+        try {
+        	Object instance = Class.forName("com.mysql.jdbc.Driver").newInstance();
+        	connection = DriverManager.getConnection(url, credentials.getUsername(), credentials.getPassword());
+        } catch (Exception e) {
+        }
+        return connection;
     }
-	
-
 }
