@@ -17,12 +17,6 @@ import javafx.stage.Stage;
 
 public class MainPane extends StackPane {
 	private Stage primaryStage;
-	private BorderPane mainContainer = new BorderPane();
-	private VBox naviPane = new VBox();
-	private VBox listPane = new VBox();
-	private HBox toolBarPane = new HBox();
-	private GridPane calendarPane = new GridPane();
-	private BorderPane detailPane = new BorderPane();
 	private double height;
 	private double width;
 	private Label currentDateInfo = new Label("Hello There!");
@@ -33,6 +27,8 @@ public class MainPane extends StackPane {
 	}
 
 	private void initComponents() {
+		BorderPane mainContainer = new BorderPane();
+
 		height = primaryStage.getHeight();
 		width = primaryStage.getWidth();
 		
@@ -48,6 +44,7 @@ public class MainPane extends StackPane {
 	}
 
 	private HBox initCalendarHeader() {
+		HBox toolBarPane = new HBox();
 		toolBarPane.setPrefSize(width, height * 0.05);
 		toolBarPane.getStyleClass().add("pane");
 		
@@ -55,6 +52,7 @@ public class MainPane extends StackPane {
 	}
 
 	private BorderPane initDetailPane() {
+		BorderPane detailPane = new BorderPane();
 		detailPane.setPrefSize(width / 2, height * 0.2);
 		detailPane.getStyleClass().add("pane");
 		
@@ -68,6 +66,7 @@ public class MainPane extends StackPane {
 	}
 
 	private VBox initNaviPane() {
+		VBox naviPane = new VBox();
 		naviPane.setPrefSize(width / 5, height);
 		naviPane.getStyleClass().add("pane");
 		
@@ -86,17 +85,24 @@ public class MainPane extends StackPane {
 	}
 
 	private GridPane initCalendarPane() {
+		GridPane calendarPane = new GridPane();
 		calendarPane.setPrefSize(width * 0.6, height * 0.8);
 		calendarPane.getStyleClass().add("pane");
-		  
-		DatePickerSkin datePickerSkin = new DatePickerSkin(new DatePickerExtended(LocalDate.now(), currentDateInfo));
-		Node popupContent = datePickerSkin.getPopupContent();
 		
-        calendarPane.getChildren().add(popupContent);
+		try {
+			DatePickerSkin datePickerSkin = new DatePickerSkin(new DatePickerExtended(LocalDate.now(), currentDateInfo));
+			calendarPane.getChildren().add(datePickerSkin.getPopupContent());
+		} catch (Exception e) {
+			System.out.println("Could not initialize Calendar with given Informations\nLoad blank clander....");
+			calendarPane = new GridPane();
+			calendarPane.setPrefSize(width * 0.6, height * 0.8);
+			calendarPane.getStyleClass().add("pane");
+		}
 		return calendarPane;
 	}
 
 	private VBox initListPane() {
+		VBox listPane = new VBox();
 		listPane.getStyleClass().add("pane");
 		listPane.setPrefSize(width / 5, height);
 
