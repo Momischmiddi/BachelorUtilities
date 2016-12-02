@@ -11,7 +11,9 @@ import backend.database.dbQueries.SearchQueries;
 
 public class ConnectionInit {
 
-	public void init() {
+	private DBConnection connection;
+
+	public boolean init() {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
@@ -22,7 +24,7 @@ public class ConnectionInit {
 		
 		DBOpenConnection openConnection = new DBOpenConnection();
 		try {
-			DBConnection connection = openConnection.createConnection(credentials);
+			connection = openConnection.createConnection(credentials);
 			InsertQueries insert = new InsertQueries(connection);
 //			for(int i=0;i<20;i++){
 //				Topic topic = new Topic();
@@ -61,16 +63,16 @@ public class ConnectionInit {
 //					insert.executeInsertStatement(date, i+1);
 //				}
 //			}
+			return true;
 			
-			SearchQueries search = new SearchQueries(connection);
-			ArrayList<Topic> topics = search.searchAllTopics();
-			Topic topic = search.getSpecificTopic(3);
-			
-			connection.closeConnection();
 		} catch (Exception e) {
 			System.err.println("Error establishing connection");
 			e.printStackTrace();
-		}
+			return false;
+		} 
 	}
 
+	public DBConnection getConnection() {
+		return connection;
+	}
 }

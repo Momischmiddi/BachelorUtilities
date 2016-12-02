@@ -17,6 +17,7 @@ public class DBConnection {
 		try {
 			statement.close();
 			connection.close();
+			System.out.println("Connection closed");
 		} catch (SQLException e) {
 			System.out.println("Error closing Connection");
 			e.printStackTrace();

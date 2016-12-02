@@ -65,8 +65,10 @@ public class LoginPane extends StackPane {
 	}
 
 	private void login() {
-		new ConnectionInit().init();
-		new MainPane(primaryStage);
+		ConnectionInit connectionInit = new ConnectionInit();
+		if (connectionInit.init()) {
+			new MainPane(primaryStage, connectionInit.getConnection());
+		};
 	}
 
 	private void checkLoginDetails() {

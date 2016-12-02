@@ -64,5 +64,23 @@ public class Topic {
 		this.secondOpinion = secondOpinion;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ID: " + ID + "\n");
+		builder.append("Title: " + title + "\n");
+		builder.append("Desrciption: " + description + "\n");
+		if (null != author) {
+			builder.append("Author: " + author.getName() + "\n");
+		}
+		builder.append("Grade: " + grade + "\n");
+		builder.append("Date: " + date + "\n");
+		if (null != expertOpinion) { 
+			builder.append("Expertopinion: " + expertOpinion.getOpinion() + "\n");
+		}
+		if (null != secondOpinion) { 
+			builder.append("Second-opinion: " + secondOpinion.getOpinion() + "\n");
+		}
+		return builder.toString();
+	}
 }
