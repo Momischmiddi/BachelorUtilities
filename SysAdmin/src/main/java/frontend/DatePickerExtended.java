@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 
 public class DatePickerExtended extends DatePicker {
 
-	private String pattern = "yyyy-MM-dd";
-	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+	private static String pattern = "dd-MM-yyyy";
+	static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 	private Label label;
 
 	public DatePickerExtended(LocalDate now, Label label) {

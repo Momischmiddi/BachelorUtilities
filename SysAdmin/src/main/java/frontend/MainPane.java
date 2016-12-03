@@ -8,14 +8,11 @@ import com.sun.javafx.scene.control.skin.DatePickerSkin;
 
 import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
+import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,15 +26,21 @@ public class MainPane extends StackPane {
 	private double width;
 	private Label currentDateInfo = new Label("Hello There!");
 	private SearchQueries searchQueries;
+	private InsertQueries insertQueries;
+
 	
 	public MainPane(Stage primaryStage, DBConnection dbConnection) {
 		this.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(closeEvent -> dbConnection.closeConnection());
-		initComponents();
+		
 		searchQueries = new SearchQueries(dbConnection);
+		insertQueries = new InsertQueries(dbConnection);
+		
+		initComponents();
 		listQueries();
 		
 	}
+	
 	private void listQueries() {
 		ArrayList<Topic> topics = searchQueries.searchAllTopics();
 		
@@ -47,6 +50,7 @@ public class MainPane extends StackPane {
 	}
 
 	private void initComponents() {
+
 		BorderPane mainContainer = new BorderPane();
 
 		height = primaryStage.getHeight();
@@ -90,16 +94,14 @@ public class MainPane extends StackPane {
 		naviPane.setPrefSize(width / 5, height);
 		naviPane.getStyleClass().add("pane");
 		
-		VBox content = new VBox(11);
-		Button button = new Button("Neues Thema");
-		button.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				showCreateTopicWindow();
-			}
+		Button buttonNewTopic = new Button("Neues Thema"), 
+				buttonShowTopics = new Button("Alle Projekte anzeigen");
+		
+		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage, insertQueries));
+		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries));
 
-		});
-		content.getChildren().add(button);
+		VBox content = new VBox(11);
+		content.getChildren().add(buttonNewTopic);
 		for (int i = 0; i < 10; i++) {
 			content.getChildren().add(new Label(Integer.toString(i)));
 			content.getChildren().add(new Label("Hier könnte Ihre Werbung stehen!"));
@@ -112,10 +114,6 @@ public class MainPane extends StackPane {
 		return naviPane;
 	}
 	
-	private void showCreateTopicWindow() {
-		new TopicWindow(primaryStage);
-	}
-
 	private GridPane initCalendarPane() {
 		GridPane calendarPane = new GridPane();
 		calendarPane.setPrefSize(width * 0.6, height * 0.8);
