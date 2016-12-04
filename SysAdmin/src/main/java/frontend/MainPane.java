@@ -10,6 +10,8 @@ import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
+import frontend.topic.ListTopicsWindow;
+import frontend.topic.TopicWindow;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -100,13 +102,7 @@ public class MainPane extends StackPane {
 		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage, insertQueries));
 		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries));
 
-		VBox content = new VBox(11);
-		content.getChildren().add(buttonNewTopic);
-		for (int i = 0; i < 10; i++) {
-			content.getChildren().add(new Label(Integer.toString(i)));
-			content.getChildren().add(new Label("Hier könnte Ihre Werbung stehen!"));
-		}
-
+		VBox content = new VBox(11, buttonNewTopic, buttonShowTopics);
 		ScrollPane scrollPane = new ScrollPane(content);
 		scrollPane.setId("scrollPane");
 		naviPane.getChildren().add(scrollPane);

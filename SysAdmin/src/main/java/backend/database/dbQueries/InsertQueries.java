@@ -253,7 +253,7 @@ public class InsertQueries {
 		String insertStatement = "INSERT INTO " + DBStructure.TABLE_TOPIC + " (";
 		String insertValues = "VALUES(";
 
-		if (topic.getTitle() != null) {
+		if (topic.getTitle() != null || !topic.getTitle().isEmpty()) {
 			insertStatement += DBStructure.TABLE_TOPIC_TITLE;
 			insertValues += "\"" + topic.getTitle() + "\"";
 		} else {
@@ -262,6 +262,13 @@ public class InsertQueries {
 		if (topic.getDescription() != null) {
 			insertStatement += "," + DBStructure.TABLE_TOPIC_DESCRIPTION;
 			insertValues += "," + "\"" + topic.getDescription() + "\"";
+		}
+		if (topic.isFinished()) {
+			insertStatement += "," + DBStructure.TABLE_TOPIC_STATE;
+			insertValues += "," + "\"" + topic.isFinished() + "\"";
+		} else {
+			insertStatement += "," + DBStructure.TABLE_TOPIC_STATE;
+			insertValues += "," + "\"" + topic.isFinished() + "\"";
 		}
 
 		insertStatement += ")";

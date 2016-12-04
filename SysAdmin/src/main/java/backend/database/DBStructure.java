@@ -30,6 +30,7 @@ public final class DBStructure {
 	public static final String TABLE_TOPIC_GRADE 				= "grade"; 
 	public static final String TABLE_TOPIC_EXPERT_OPINION 		= "expert_opinion";
 	public static final String TABLE_TOPIC_SECOND_OPINION 		= "second_opinion";
+	public static final String TABLE_TOPIC_STATE 				= "state";
 	
 	//Author
 	public static final String TABLE_AUTHOR 					= "Author";

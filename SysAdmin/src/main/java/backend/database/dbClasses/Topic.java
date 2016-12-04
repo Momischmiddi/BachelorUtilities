@@ -12,8 +12,7 @@ public class Topic {
 	private ArrayList<Date> date;
 	private ExpertOpinion expertOpinion;
 	private SecondOpinion secondOpinion;
-	
-	
+	private boolean isFinished;
 	
 	public int getID() {
 		return ID;
@@ -63,6 +62,12 @@ public class Topic {
 	public void setSecondOpinion(SecondOpinion secondOpinion) {
 		this.secondOpinion = secondOpinion;
 	}
+	public boolean isFinished() {
+		return isFinished;
+	}
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
 	
 	@Override
 	public String toString() {
@@ -81,6 +86,7 @@ public class Topic {
 		if (null != secondOpinion) { 
 			builder.append("Second-opinion: " + secondOpinion.getOpinion() + "\n");
 		}
+		builder.append("Stand: " + ((isFinished) ? "Abgeschlossen" : "in Bearbeitung"));
 		return builder.toString();
 	}
 }

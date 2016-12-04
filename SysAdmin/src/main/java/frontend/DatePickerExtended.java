@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 public class DatePickerExtended extends DatePicker {
 
 	private static String pattern = "dd-MM-yyyy";
-	static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+	public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 	private Label label;
 
 	public DatePickerExtended(LocalDate now, Label label) {

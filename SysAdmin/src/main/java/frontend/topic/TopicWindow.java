@@ -1,9 +1,7 @@
-package frontend;
+package frontend.topic;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import backend.database.dbClasses.Author;
 import backend.database.dbClasses.Date;
@@ -11,10 +9,10 @@ import backend.database.dbClasses.ExpertOpinion;
 import backend.database.dbClasses.Topic;
 import backend.database.dbExceptions.NoTitleException;
 import backend.database.dbQueries.InsertQueries;
+import frontend.DatePickerExtended;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -106,11 +104,13 @@ public class TopicWindow extends Stage {
 			topic.setDate(validateDateInput());
 			topic.setExpertOpinion(validateExpertOpinionInput());
 			topic.setID(topic.hashCode());
+			topic.setFinished(false);
 			
 			insertQueries.insertNewTopic(topic);
 		} catch (NoTitleException e) {
 			e.printStackTrace();
 		}
+		close();
 	}
 
 	private ExpertOpinion validateExpertOpinionInput() {
