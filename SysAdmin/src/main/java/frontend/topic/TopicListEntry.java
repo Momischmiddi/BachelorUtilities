@@ -30,8 +30,18 @@ public class TopicListEntry extends Pane {
 		labelState = new Label(appendState(topic));
 		
 		// TODO initActionEvents for Buttons
+		buttonDelete.setOnAction(e -> deleteTopic(topic));
+		buttonDetails.setOnAction(e -> showTopicWindow(topic));
 	}
 	
+	private void showTopicWindow(Topic topic) {
+		
+	}
+
+	private void deleteTopic(Topic topic) {
+		
+	}
+
 	private String appendState(Topic topic) {
 		return (topic.isFinished()) ? "Fertig gestellt" : "Offen";
 	}
