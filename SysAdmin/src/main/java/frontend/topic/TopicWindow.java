@@ -104,7 +104,7 @@ public class TopicWindow extends Stage {
 			topic.setDate(validateDateInput());
 			topic.setExpertOpinion(validateExpertOpinionInput());
 			topic.setID(topic.hashCode());
-			topic.setFinished(false);
+			topic.setFinished(0);
 			
 			insertQueries.insertNewTopic(topic);
 		} catch (NoTitleException e) {

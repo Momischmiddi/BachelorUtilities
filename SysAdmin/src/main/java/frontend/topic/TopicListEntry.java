@@ -33,7 +33,7 @@ public class TopicListEntry extends Pane {
 	}
 	
 	private String appendState(Topic topic) {
-		return (topic.isFinished()) ? "Fertig gestellt" : "Offen";
+		return (topic.isFinished() == 1) ? "Fertig gestellt" : "Offen";
 	}
 
 	private String appendTitle(Topic topic) {

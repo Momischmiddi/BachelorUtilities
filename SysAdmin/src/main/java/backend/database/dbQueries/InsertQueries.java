@@ -263,7 +263,7 @@ public class InsertQueries {
 			insertStatement += "," + DBStructure.TABLE_TOPIC_DESCRIPTION;
 			insertValues += "," + "\"" + topic.getDescription() + "\"";
 		}
-		if (topic.isFinished()) {
+		if (topic.isFinished() == 1) {
 			insertStatement += "," + DBStructure.TABLE_TOPIC_STATE;
 			insertValues += "," + "\"" + topic.isFinished() + "\"";
 		} else {

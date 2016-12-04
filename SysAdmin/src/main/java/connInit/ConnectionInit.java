@@ -17,7 +17,7 @@ public class ConnectionInit {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
-		credentials.setPort(8080);
+		credentials.setPort(3306);
 		credentials.setDatabase("BachelorUtilities");
 		credentials.setUsername("root");
 		credentials.setPassword("");

@@ -55,6 +55,7 @@ public class Init {
 					+ "" + DBStructure.TABLE_TOPIC_GRADE + " INT,"
 					+ "" + DBStructure.TABLE_TOPIC_EXPERT_OPINION + " INT,"
 					+ "" + DBStructure.TABLE_TOPIC_SECOND_OPINION+ " INT,"
+					+ "" + DBStructure.TABLE_TOPIC_STATE + " BOOL,"
 					+ "PRIMARY KEY(ID),"
 					+ "FOREIGN KEY(" + DBStructure.TABLE_TOPIC_AUTHOR + ") REFERENCES " 
 							+ DBStructure.TABLE_AUTHOR + "(ID),"
