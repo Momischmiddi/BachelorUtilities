@@ -1,0 +1,43 @@
+.root {
+	-fx-background-color: #CCFF99;
+	-fx-background-image: url("/Images/blue_texture-wallpaper-1920x1080.jpg");
+	-fx-background-size: cover;
+	-fx-font-family: "Tahoma";
+}
+
+#sceneTitle {
+	-fx-font-size: 30px;
+}
+
+.date-picker-popup {
+    -fx-background-color: blue, lightblue, lightgreen;
+    -fx-background-insets: 0, 1, 1;
+    -fx-background-radius: 1, 2, 3;
+    -fx-alignment: CENTER; /* VBox */
+    -fx-spacing: 10; /* VBox */
+    -fx-padding: 0.83333em; /* 1 1 1 1 */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.date-picker-popup > * > .date-cell {
+	-fx-padding: 0;
+    -fx-min-height: 80px;
+    -fx-alignment: BASELINE_CENTER;
+    -fx-opacity: 1.0;
+}
+
+.pane {
+	-fx-border-color: #6495ED;
+	-fx-border-radius: 2, 2, 2, 2;
+	-fx-border-width: 2px;
+}
+
+.scroll-pane>.viewport {
+	-fx-background-color: transparent;
+}
+
+#scrollPane {
+	-fx-fit-to-height: true;
+	-fx-fit-to-width: true;
+	-fx-background-color: transparent;
+}
