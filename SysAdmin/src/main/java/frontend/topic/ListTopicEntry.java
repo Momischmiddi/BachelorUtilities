@@ -1,19 +1,21 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class TopicListEntry extends Pane {
+public class ListTopicEntry extends Pane {
 	
 	private Label labelTitle, labelAuthor, labelState;
 	private Button buttonDetails = new Button("Details"), buttonDelete = new Button("Löschen");
 	
-	public TopicListEntry(Topic topic) {
-		initComponents(topic);
+	public ListTopicEntry(Topic topic, EventHandler<ActionEvent> detailViewHandler) {
+		initComponents(topic, detailViewHandler);
 		setLayout();
 	}
 
@@ -24,22 +26,18 @@ public class TopicListEntry extends Pane {
 		getChildren().add(gridLayout);
 	}
 
-	private void initComponents(Topic topic) {
+	private void initComponents(Topic topic, EventHandler<ActionEvent> detailViewHandler) {
 		labelAuthor = new Label(appendAuthorName(topic));
 		labelTitle = new Label(appendTitle(topic));
 		labelState = new Label(appendState(topic));
 		
-		// TODO initActionEvents for Buttons
 		buttonDelete.setOnAction(e -> deleteTopic(topic));
-		buttonDetails.setOnAction(e -> showTopicWindow(topic));
+		buttonDetails.setOnAction(detailViewHandler);
 	}
 	
-	private void showTopicWindow(Topic topic) {
-		
-	}
 
 	private void deleteTopic(Topic topic) {
-		
+		// TODO implement this bitch
 	}
 
 	private String appendState(Topic topic) {
@@ -47,7 +45,7 @@ public class TopicListEntry extends Pane {
 	}
 
 	private String appendTitle(Topic topic) {
-		return (topic.getTitle() == null) ? "<Noch kein Titel angegeben>" : topic.getTitle();
+		return (topic.getTitle().isEmpty()) ? "<Noch kein Titel angegeben>" : topic.getTitle();
 	}
 
 	private String appendAuthorName(Topic topic) {

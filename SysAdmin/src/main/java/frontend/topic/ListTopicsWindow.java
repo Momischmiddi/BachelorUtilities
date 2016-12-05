@@ -1,9 +1,12 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
+import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
@@ -11,9 +14,11 @@ import javafx.stage.Stage;
 
 public class ListTopicsWindow extends Stage {
 
-	private ListView<TopicListEntry> list;
+	private ListView<ListTopicEntry> list;
+	private Stage primaryStage;
 
-	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries) {
+	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries, InsertQueries insertQueries) {
+		this.primaryStage = primaryStage;
 		setTitle("Übersicht Projektarbeiten");
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
@@ -22,7 +27,7 @@ public class ListTopicsWindow extends Stage {
 		setX(primaryStage.getX() + 250);
 		setY(primaryStage.getY() + 100);
 
-		list = initComponents(searchQueries);
+		list = initComponents(searchQueries, insertQueries);
 		setLayout();
 
 	}
@@ -33,14 +38,24 @@ public class ListTopicsWindow extends Stage {
 		show();
 	}
 
-	private ListView<TopicListEntry> initComponents(SearchQueries searchQueries) {
-		list = new ListView<TopicListEntry>();
-		ObservableList<TopicListEntry> items = FXCollections.observableArrayList();
+	private ListView<ListTopicEntry> initComponents(SearchQueries searchQueries, InsertQueries insertQueries) {
+		list = new ListView<ListTopicEntry>();
+		ObservableList<ListTopicEntry> items = FXCollections.observableArrayList();
 	      
 		for (Topic topic : searchQueries.searchAllTopics()) {
-			items.add(new TopicListEntry(topic));
+			items.add(new ListTopicEntry(topic, initEventHandlerForDetailView(topic, insertQueries)));
 		}
 		list.setItems(items);
 		return list;
+	}
+
+	private EventHandler<ActionEvent> initEventHandlerForDetailView(Topic topic, InsertQueries insertQueries) {
+		EventHandler<ActionEvent> detailHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				new TopicWindow(primaryStage, insertQueries, topic);
+			}
+		};
+		return detailHandler;
 	}
 }

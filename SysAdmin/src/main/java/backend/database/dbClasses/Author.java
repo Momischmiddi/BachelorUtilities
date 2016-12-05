@@ -11,6 +11,4 @@ public class Author extends Person{
 	public void setMatriculationNumber(int matriculationNumber) {
 		this.matriculationNumber = matriculationNumber;
 	}
-	
-	
 }
