@@ -1,21 +1,19 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class ListTopicEntry extends Pane {
+public class TopicListEntry extends Pane {
 	
 	private Label labelTitle, labelAuthor, labelState;
 	private Button buttonDetails = new Button("Details"), buttonDelete = new Button("Löschen");
 	
-	public ListTopicEntry(Topic topic, EventHandler<ActionEvent> detailViewHandler) {
-		initComponents(topic, detailViewHandler);
+	public TopicListEntry(Topic topic) {
+		initComponents(topic);
 		setLayout();
 	}
 
@@ -26,26 +24,20 @@ public class ListTopicEntry extends Pane {
 		getChildren().add(gridLayout);
 	}
 
-	private void initComponents(Topic topic, EventHandler<ActionEvent> detailViewHandler) {
+	private void initComponents(Topic topic) {
 		labelAuthor = new Label(appendAuthorName(topic));
 		labelTitle = new Label(appendTitle(topic));
 		labelState = new Label(appendState(topic));
 		
-		buttonDelete.setOnAction(e -> deleteTopic(topic));
-		buttonDetails.setOnAction(detailViewHandler);
+		// TODO initActionEvents for Buttons
 	}
 	
-
-	private void deleteTopic(Topic topic) {
-		// TODO implement this bitch
-	}
-
 	private String appendState(Topic topic) {
-		return (topic.isFinished() == 1 ? "Fertig gestellt" : "Offen");
+		return (topic.isFinished() == 1) ? "Fertig gestellt" : "Offen";
 	}
 
 	private String appendTitle(Topic topic) {
-		return (topic.getTitle().isEmpty()) ? "<Noch kein Titel angegeben>" : topic.getTitle();
+		return (topic.getTitle() == null) ? "<Noch kein Titel angegeben>" : topic.getTitle();
 	}
 
 	private String appendAuthorName(Topic topic) {

@@ -140,7 +140,7 @@ public class TopicWindow extends Stage {
 			topic.setExpertOpinion(validateExpertOpinionInput());
 			topic.setSecondOpinion(validateProofReaderInput());
 			topic.setID(topic.hashCode());
-			topic.setFinished(false);
+			topic.setFinished(0);
 			
 			insertQueries.insertNewTopic(topic);
 		} catch (NoTitleException e) {

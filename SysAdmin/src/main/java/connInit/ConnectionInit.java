@@ -1,13 +1,10 @@
 package connInit;
 
-import java.util.ArrayList;
-
-import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbConnection.DBCredentials;
 import backend.database.dbConnection.DBOpenConnection;
-import backend.database.dbQueries.InsertQueries;
-import backend.database.dbQueries.SearchQueries;
+import backend.database.dbClasses.*;
+import backend.database.dbQueries.*;;
 
 public class ConnectionInit {
 
@@ -17,7 +14,7 @@ public class ConnectionInit {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
-		credentials.setPort(8080);
+		credentials.setPort(3306);
 		credentials.setDatabase("BachelorUtilities");
 		credentials.setUsername("root");
 		credentials.setPassword("");
@@ -26,7 +23,9 @@ public class ConnectionInit {
 		try {
 			connection = openConnection.createConnection(credentials);
 			InsertQueries insert = new InsertQueries(connection);
-//			for(int i=0;i<20;i++){
+			DeleteQueries delete = new DeleteQueries(connection);
+			delete.DeleteTopic(2);
+//			for(int i = 0; i<20;i++){
 //				Topic topic = new Topic();
 //				topic.setTitle("Topic " + i);
 //				topic.setDescription("Description for Topic " + i);
