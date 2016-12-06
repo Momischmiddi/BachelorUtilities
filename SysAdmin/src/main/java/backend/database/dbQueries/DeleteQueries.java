@@ -38,7 +38,7 @@ public class DeleteQueries {
 				+ " FROM " + DBStructure.TABLE_DATE
 				+ " WHERE " + DBStructure.TABLE_DATE_TOPIC + " = " + topicID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchQuery);
@@ -67,7 +67,7 @@ public class DeleteQueries {
 				+ " FROM " + DBStructure.TABLE_TOPIC
 				+ " WHERE ID = " + topicID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchQuery);
@@ -89,14 +89,7 @@ public class DeleteQueries {
 		}
 	}
 	
-	private Statement getNewStatement() {
-		try {
-			Statement tmpStatement = connection.getConnection().createStatement();
-			return tmpStatement;
-		} catch (SQLException e1) {
-		}
-		return null;
-	}
+	
 
 	private void deleteTableEntry(int entryID, String table) {
 		if(entryID !=0){

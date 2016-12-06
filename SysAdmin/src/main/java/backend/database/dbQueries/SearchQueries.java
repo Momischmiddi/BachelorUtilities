@@ -99,7 +99,7 @@ public class SearchQueries {
 				+ "FROM " + DBStructure.TABLE_AUTHOR + " "
 				+ "WHERE ID=" + authorID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
@@ -120,15 +120,7 @@ public class SearchQueries {
 		}
 		return null;
 	}
-	
-	private Statement getNewStatement() {
-		try {
-			Statement tmpStatement = connection.getConnection().createStatement();
-			return tmpStatement;
-		} catch (SQLException e1) {
-		}
-		return null;
-	}
+
 
 	private Grade getGradeFromDB(int gradeID) {
 		Grade grade = new Grade();
@@ -137,7 +129,7 @@ public class SearchQueries {
 				+ "FROM " + DBStructure.TABLE_GRADE + " "
 				+ "WHERE ID=" + gradeID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
@@ -164,7 +156,7 @@ public class SearchQueries {
 				+ "FROM " + DBStructure.TABLE_DATE + " "
 				+ "WHERE " + DBStructure.TABLE_DATE_TOPIC + "=" + topicID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
@@ -195,7 +187,7 @@ public class SearchQueries {
 				+ "FROM " + DBStructure.TABLE_SECOND_OPINION + " "
 				+ "WHERE ID=" + secondOpinionID;
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
@@ -224,7 +216,7 @@ public class SearchQueries {
 				+ "FROM " + DBStructure.TABLE_EXPERT_OPINION + " "
 				+ "WHERE ID=" + expertOpinionID;	
 		ResultSet searchResults = null;
-		Statement tmpStatement = getNewStatement();
+		Statement tmpStatement = dbOperations.getNewStatement(connection);
 		if(tmpStatement != null){
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);

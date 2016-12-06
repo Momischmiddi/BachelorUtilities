@@ -83,7 +83,7 @@ public class InsertQueries {
 	private boolean makeReferenceToTopic(int topicID, String referenceTable) {
 		int insertedDataID = getLastInsertedKey();
 		if (insertedDataID != DBStructure.DBError.NO_PRIMARY_KEY.getValue()) {
-			int updateStatus = update.updateTopic(topicID, referenceTable, insertedDataID);
+			int updateStatus = update.updateForeignKeyToTopic(topicID, referenceTable, insertedDataID);
 			if (updateStatus == DBStructure.DBError.UPDATE_REFERENCE_TO_TOPIC_ERROR.getValue()) {
 				return false;
 			}
@@ -118,14 +118,6 @@ public class InsertQueries {
 		return DBStructure.DBError.NO_PRIMARY_KEY.getValue();
 	}
 
-	private String deleteLastCharComma(String str) {
-		if (str.substring(str.length() - 1).equals(",")) {
-			return str.substring(0, str.length() - 1);
-		} else {
-			return str;
-		}
-	}
-
 	private void insertNewExpertOpinion(ExpertOpinion expertOpinion) throws SQLException {
 		String insertStatement = "INSERT INTO " + DBStructure.TABLE_EXPERT_OPINION + " (";
 		String insertValues = "VALUES(";
@@ -145,8 +137,8 @@ public class InsertQueries {
 			}
 		}
 
-		insertStatement = deleteLastCharComma(insertStatement);
-		insertValues = deleteLastCharComma(insertValues);
+		insertStatement = dbOperations.deleteLastCharComma(insertStatement);
+		insertValues = dbOperations.deleteLastCharComma(insertValues);
 
 		insertStatement += ")";
 		insertValues += ");";
@@ -173,8 +165,8 @@ public class InsertQueries {
 			}
 		}
 
-		insertStatement = deleteLastCharComma(insertStatement);
-		insertValues = deleteLastCharComma(insertValues);
+		insertStatement = dbOperations.deleteLastCharComma(insertStatement);
+		insertValues = dbOperations.deleteLastCharComma(insertValues);
 
 		insertStatement += ")";
 		insertValues += ");";
@@ -225,8 +217,8 @@ public class InsertQueries {
 			}
 		}
 
-		insertStatement = deleteLastCharComma(insertStatement);
-		insertValues = deleteLastCharComma(insertValues);
+		insertStatement = dbOperations.deleteLastCharComma(insertStatement);
+		insertValues = dbOperations.deleteLastCharComma(insertValues);
 
 		insertStatement += ")";
 		insertValues += ");";
