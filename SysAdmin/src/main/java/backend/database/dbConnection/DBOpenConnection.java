@@ -15,7 +15,9 @@ public class DBOpenConnection {
 		
 
 		Connection connection = openConnection(credentials);
-
+		if (null == connection) {
+			return null;
+		}
 		try {
 			dbconnection = new DBConnection(connection, createStatement(connection));
 			new Init(dbconnection);
@@ -44,7 +46,9 @@ public class DBOpenConnection {
         try {
         	Object instance = Class.forName("com.mysql.jdbc.Driver").newInstance();
         	connection = DriverManager.getConnection(url, credentials.getUsername(), credentials.getPassword());
-        } catch (Exception e) {
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+        	System.out.println("Could not establish connection with :" + credentials.toString());
+        	return null;
         }
         return connection;
     }
