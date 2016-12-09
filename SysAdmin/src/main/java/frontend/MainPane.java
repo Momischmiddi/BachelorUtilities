@@ -12,6 +12,7 @@ import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
 import frontend.calendar.DatePickerExtended;
+import frontend.eva.EvaluationWindow;
 import frontend.topic.ListTopicsWindow;
 import frontend.topic.TopicWindow;
 import javafx.scene.control.Button;
@@ -102,12 +103,14 @@ public class MainPane extends StackPane {
 		naviPane.getStyleClass().add("pane");
 
 		Button buttonNewTopic = new Button("Neues Thema"), 
-				buttonShowTopics = new Button("Alle Projekte anzeigen");
+				buttonShowTopics = new Button("Alle Projekte anzeigen"),
+				buttonShowEvaluation = new Button("Evaluierungsbogen erstellen");
 
 		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage, insertQueries));
 		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries, insertQueries, deleteQueries));
-
-		VBox content = new VBox(11, buttonNewTopic, buttonShowTopics);
+		buttonShowEvaluation.setOnAction(e -> new EvaluationWindow(primaryStage));
+		
+		VBox content = new VBox(11, buttonNewTopic, buttonShowTopics, buttonShowEvaluation);
 		ScrollPane scrollPane = new ScrollPane(content);
 		scrollPane.setId("scrollPane");
 		naviPane.getChildren().add(scrollPane);

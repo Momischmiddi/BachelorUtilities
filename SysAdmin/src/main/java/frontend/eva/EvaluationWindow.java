@@ -4,6 +4,7 @@ import backend.database.dbClasses.Author;
 import backend.database.dbClasses.ExpertOpinion;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
+import frontend.LoginPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -24,6 +26,7 @@ public class EvaluationWindow extends Stage {
 
 	private GridPane grid = new GridPane();
 
+	private final ToggleGroup group = new ToggleGroup();
 	private RadioButton rbProject = new RadioButton("Projektarbeit");
 	private RadioButton rbBachelor = new RadioButton("Bachelorarbeit");
 	private RadioButton rbMaster = new RadioButton("Masterarbeit");
@@ -51,9 +54,13 @@ public class EvaluationWindow extends Stage {
 	private Topic topic;
 
 	public EvaluationWindow(Topic topic, Stage primaryStage) {
+		this(primaryStage);
 		this.topic = topic;
+		insertInformation();
+	}
 
-		setTitle("Projektarbeit erstellen...");
+	public EvaluationWindow(Stage primaryStage) {
+		setTitle("Projektarbeit beurteilen...");
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
 		setWidth(670);
@@ -63,8 +70,6 @@ public class EvaluationWindow extends Stage {
 
 		initComponents();
 		setLayout();
-
-		insertInformation();
 	}
 
 	private void initComponents() {
@@ -77,6 +82,12 @@ public class EvaluationWindow extends Stage {
 
 		buttonCancel.setOnAction(e -> close());
 		buttonOK.setOnAction(e -> generateEva());
+		
+		rbBachelor.setToggleGroup(group);
+		rbMaster.setToggleGroup(group);
+		rbProject.setToggleGroup(group);
+		
+		tfSignings.setPrefWidth(453);
 	}
 
 	private void setLayout() {
@@ -117,13 +128,17 @@ public class EvaluationWindow extends Stage {
 		grid.add(new Label("Zweitkorrektur"), 0, 12);
 		grid.add(taProofReaderEva, 1, 12, 3, 3);
 
-		grid.add(new Label("Ort, Datum, Unterschrift"), 0, 15);
-		grid.add(tfSignings, 1, 15, 4, 1);
+		HBox signBox = new HBox(10, new Label("Ort, Datum, Unterschrift"), tfSignings);
+		signBox.setAlignment(Pos.CENTER_LEFT);
+		grid.add(signBox, 0, 15, 7, 1);
 
 		HBox hBox = new HBox(10, buttonOK, buttonCancel);
 		hBox.setAlignment(Pos.CENTER_RIGHT);
-		grid.add(hBox, 0, 16, 5, 1);
-		setScene(new Scene(grid, getWidth(), getHeight()));
+		grid.add(hBox, 0, 16, 4, 1);
+		
+		Scene scene = new Scene(grid, getWidth(), getHeight());
+		scene.getStylesheets().add(LoginPane.cssFile);
+		setScene(scene);
 		show();
 	}
 
@@ -184,6 +199,7 @@ public class EvaluationWindow extends Stage {
 		tfProofReaderLastName.setText(lastName.isEmpty() ? "Kein Nachname angegeben" : lastName);
 
 		String opinionText = secondOpinion.getOpinion();
+		if (null != opinionText)
 		taProofReaderEva.setText(lastName.isEmpty() ? "Keine Beurteilung angegeben" : opinionText);
 	}
 
@@ -198,11 +214,13 @@ public class EvaluationWindow extends Stage {
 		tfSupervisorLastName.setText(lastName.isEmpty() ? "Kein Nachname angegeben" : lastName);
 
 		String opinionText = expertOpinion.getOpinion();
-		taSupervisorEva.setText(lastName.isEmpty() ? "Keine Beurteilung angegeben" : opinionText);
+		if (null != opinionText)
+		taSupervisorEva.setText(opinionText.isEmpty() ? "Keine Beurteilung angegeben" : opinionText);
 	}
 
 	private void generateEva() {
-		Topic topic = validateTopicInput();
+		Topic topic = new Topic();
+		topic.setDescription(validateTopicInput());
 		topic.setAuthor(validateAuthorInput());
 		topic.setExpertOpinion(validateExpertOpinionInput());
 		topic.setSecondOpinion(validateProofReaderInput());
@@ -239,11 +257,11 @@ public class EvaluationWindow extends Stage {
 		return opinion;
 	}
 
-	private Topic validateTopicInput() {
+	private String validateTopicInput() {
 		String descriptionText = taProjectTitle.getText();
-
-		topic.setDescription((descriptionText.isEmpty()) ? "Keine Beschreibung angegeben" : descriptionText);
-		return topic;
+		if (null != descriptionText)
+		return ((descriptionText.isEmpty()) ? "Keine Beschreibung angegeben" : descriptionText);
+		return "Keine Beschreibung angegeben";
 	}
 
 	private Author validateAuthorInput() {

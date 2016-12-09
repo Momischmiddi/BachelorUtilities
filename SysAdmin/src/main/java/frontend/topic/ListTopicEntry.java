@@ -1,13 +1,9 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
-import backend.database.dbQueries.DeleteQueries;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -18,8 +14,8 @@ public class ListTopicEntry extends Pane {
 	private Label labelTitle, labelAuthor, labelState;
 	private Button buttonDetails = new Button("Details"), buttonDelete = new Button("Löschen");
 	
-	public ListTopicEntry(Topic topic, EventHandler<ActionEvent> detailViewHandler, DeleteQueries deleteQuery) {
-		initComponents(topic, detailViewHandler, deleteQuery);
+	public ListTopicEntry(Topic topic, EventHandler<ActionEvent> detailViewHandler, EventHandler<ActionEvent> deleteHandler) {
+		initComponents(topic, detailViewHandler, deleteHandler);
 		setLayout();
 	}
 
@@ -30,24 +26,13 @@ public class ListTopicEntry extends Pane {
 		getChildren().add(gridLayout);
 	}
 
-	private void initComponents(Topic topic, EventHandler<ActionEvent> detailViewHandler, DeleteQueries deleteQuery) {
+	private void initComponents(Topic topic, EventHandler<ActionEvent> detailViewHandler,  EventHandler<ActionEvent> deleteHandler) {
 		labelAuthor = new Label(appendAuthorName(topic));
 		labelTitle = new Label(appendTitle(topic));
 		labelState = new Label(appendState(topic));
 		
-		buttonDelete.setOnAction(e -> deleteTopic(topic,deleteQuery));
+		buttonDelete.setOnAction(deleteHandler);
 		buttonDetails.setOnAction(detailViewHandler);
-	}
-	
-
-	private void deleteTopic(Topic topic, DeleteQueries deleteQuery) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Löschbestätigung");
-		alert.setHeaderText("Sind Sie sich sicher, dass die das Projekt löschen möchten?");
-
-		if (alert.showAndWait().get() == ButtonType.OK){
-			deleteQuery.deleteTopic(topic.getID());
-		} 
 	}
 
 	private String appendState(Topic topic) {

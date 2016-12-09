@@ -10,7 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,10 +23,11 @@ public class ListTopicsWindow extends Stage {
 	private Stage primaryStage;
 	private DeleteQueries deleteQueries;
 
-	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries, InsertQueries insertQueries, DeleteQueries deleteQueries) {
+	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries, InsertQueries insertQueries,
+			DeleteQueries deleteQueries) {
 		this.primaryStage = primaryStage;
 		this.deleteQueries = deleteQueries;
-		
+
 		setTitle("Übersicht Projektarbeiten");
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
@@ -47,9 +51,11 @@ public class ListTopicsWindow extends Stage {
 	private ListView<ListTopicEntry> initComponents(SearchQueries searchQueries, InsertQueries insertQueries) {
 		list = new ListView<ListTopicEntry>();
 		ObservableList<ListTopicEntry> items = FXCollections.observableArrayList();
-	      
+
 		for (Topic topic : searchQueries.searchAllTopics()) {
-			items.add(new ListTopicEntry(topic, initEventHandlerForDetailView(topic, insertQueries), deleteQueries));
+			EventHandler<ActionEvent> detailViewHandler = initEventHandlerForDetailView(topic, insertQueries);
+			EventHandler<ActionEvent> deleteHandler = initEventHandlerForDeletion(topic, deleteQueries);
+			items.add(new ListTopicEntry(topic, detailViewHandler, deleteHandler));
 		}
 		list.setItems(items);
 		return list;
@@ -60,6 +66,23 @@ public class ListTopicsWindow extends Stage {
 			@Override
 			public void handle(ActionEvent arg0) {
 				new TopicWindow(primaryStage, insertQueries, deleteQueries, topic);
+			}
+		};
+		return detailHandler;
+	}
+
+	private EventHandler<ActionEvent> initEventHandlerForDeletion(Topic topic, DeleteQueries deleteQuery) {
+		EventHandler<ActionEvent> detailHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Löschbestätigung");
+				alert.setHeaderText("Sind Sie sich sicher, dass die das Projekt löschen möchten?");
+
+				if (alert.showAndWait().get() == ButtonType.OK) {
+					deleteQuery.deleteTopic(topic.getID());
+					list.refresh();
+				}
 			}
 		};
 		return detailHandler;
