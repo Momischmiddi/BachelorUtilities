@@ -10,7 +10,7 @@ public class FrontEnd extends Application {
 	}
 
 	private void createScene(Stage primaryStage) {
-		// gotta build up connection first to check login credentials
+		// TODO gotta build up connection first to check login credentials
 		new LoginPane(primaryStage);
 	}
 

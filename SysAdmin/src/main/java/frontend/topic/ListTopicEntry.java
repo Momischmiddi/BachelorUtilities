@@ -1,19 +1,25 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
+import backend.database.dbQueries.DeleteQueries;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class TopicListEntry extends Pane {
+public class ListTopicEntry extends Pane {
 	
 	private Label labelTitle, labelAuthor, labelState;
 	private Button buttonDetails = new Button("Details"), buttonDelete = new Button("Löschen");
 	
-	public TopicListEntry(Topic topic) {
-		initComponents(topic);
+	public ListTopicEntry(Topic topic, EventHandler<ActionEvent> detailViewHandler, DeleteQueries deleteQuery) {
+		initComponents(topic, detailViewHandler, deleteQuery);
 		setLayout();
 	}
 
@@ -24,20 +30,32 @@ public class TopicListEntry extends Pane {
 		getChildren().add(gridLayout);
 	}
 
-	private void initComponents(Topic topic) {
+	private void initComponents(Topic topic, EventHandler<ActionEvent> detailViewHandler, DeleteQueries deleteQuery) {
 		labelAuthor = new Label(appendAuthorName(topic));
 		labelTitle = new Label(appendTitle(topic));
 		labelState = new Label(appendState(topic));
 		
-		// TODO initActionEvents for Buttons
+		buttonDelete.setOnAction(e -> deleteTopic(topic,deleteQuery));
+		buttonDetails.setOnAction(detailViewHandler);
 	}
 	
+
+	private void deleteTopic(Topic topic, DeleteQueries deleteQuery) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Löschbestätigung");
+		alert.setHeaderText("Sind Sie sich sicher, dass die das Projekt löschen möchten?");
+
+		if (alert.showAndWait().get() == ButtonType.OK){
+			deleteQuery.deleteTopic(topic.getID());
+		} 
+	}
+
 	private String appendState(Topic topic) {
-		return (topic.isFinished() == 1) ? " Fertig gestellt" : " noch Offen";
+		return (topic.isFinished() == 1 ? " Fertig gestellt" : " noch offen");
 	}
 
 	private String appendTitle(Topic topic) {
-		return (topic.getTitle() == null) ? "<Noch kein Titel angegeben> " : "Titel: " + topic.getTitle();
+		return (topic.getTitle().isEmpty()) ? "<Noch kein Titel angegeben>" : topic.getTitle();
 	}
 
 	private String appendAuthorName(Topic topic) {
@@ -51,7 +69,7 @@ public class TopicListEntry extends Pane {
 			}
 			return author;
 		} else {
-			return "<Noch kein Author zugewiesen>";
+			return " <Noch kein Author zugewiesen>";
 		}
 	}
 }

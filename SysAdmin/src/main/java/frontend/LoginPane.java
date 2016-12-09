@@ -25,6 +25,8 @@ public class LoginPane extends StackPane {
 	private Label labelUserName = new Label("Benutzername");
 	private Label labelPassword = new Label("Passwort");
 
+	public static final String cssFile = LoginPane.class.getResource("NewFile.css").toExternalForm();
+
 
 	public LoginPane(Stage primaryStage) {
 		this.primaryStage = primaryStage;

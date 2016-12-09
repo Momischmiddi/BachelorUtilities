@@ -22,9 +22,6 @@ public class ConnectionInit {
 		DBOpenConnection openConnection = new DBOpenConnection();
 		try {
 			connection = openConnection.createConnection(credentials);
-			InsertQueries insert = new InsertQueries(connection);
-			DeleteQueries delete = new DeleteQueries(connection);
-			delete.DeleteTopic(2);
 //			for(int i = 0; i<20;i++){
 //				Topic topic = new Topic();
 //				topic.setTitle("Topic " + i);

@@ -27,7 +27,9 @@ public class DBOpenConnection {
 								credentials.getHostAdress() + "\nPassword: " + 
 								credentials.getPassword() + "\nPort" + 
 								credentials.getPort() + "\nUserName" + 
-								credentials.getUsername() + "\nDataBase" + credentials.getDatabase());
+								credentials.getUsername() + "\nDataBase" 
+								+ credentials.getDatabase()
+								);
 			System.exit(-1);
 		}
 		return null;

@@ -16,7 +16,7 @@ public class DeleteQueries {
 		this.connection = connection;
 	}
 	
-	public void DeleteTopic(int topicID){
+	public void deleteTopic(int topicID){
 		
 		String deleteQuery = 
 				  "DELETE FROM " + DBStructure.TABLE_TOPIC 
