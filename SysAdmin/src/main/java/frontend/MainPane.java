@@ -10,6 +10,7 @@ import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
+import backend.database.dbQueries.UpdateQueries;
 import frontend.topic.ListTopicsWindow;
 import frontend.topic.TopicWindow;
 import javafx.scene.control.Button;
@@ -100,7 +101,7 @@ public class MainPane extends StackPane {
 				buttonShowTopics = new Button("Alle Projekte anzeigen");
 		
 		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage, insertQueries));
-		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries));
+		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries, insertQueries));
 
 		VBox content = new VBox(11, buttonNewTopic, buttonShowTopics);
 		ScrollPane scrollPane = new ScrollPane(content);

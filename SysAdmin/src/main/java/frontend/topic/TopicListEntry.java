@@ -33,15 +33,15 @@ public class TopicListEntry extends Pane {
 	}
 	
 	private String appendState(Topic topic) {
-		return (topic.isFinished() == 1) ? "Fertig gestellt" : "Offen";
+		return (topic.isFinished() == 1) ? " Fertig gestellt" : " noch Offen";
 	}
 
 	private String appendTitle(Topic topic) {
-		return (topic.getTitle() == null) ? "<Noch kein Titel angegeben>" : topic.getTitle();
+		return (topic.getTitle() == null) ? "<Noch kein Titel angegeben> " : "Titel: " + topic.getTitle();
 	}
 
 	private String appendAuthorName(Topic topic) {
-		String author = "";
+		String author = " von ";
 		if (null != topic.getAuthor()) {
 			if (null != topic.getAuthor().getForename()) {
 				author = author.concat(topic.getAuthor().getForename());

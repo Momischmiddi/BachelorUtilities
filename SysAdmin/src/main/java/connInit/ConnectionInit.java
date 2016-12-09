@@ -3,8 +3,8 @@ package connInit;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbConnection.DBCredentials;
 import backend.database.dbConnection.DBOpenConnection;
-import backend.database.dbClasses.*;
-import backend.database.dbQueries.*;;
+import backend.database.dbQueries.DeleteQueries;
+import backend.database.dbQueries.InsertQueries;;
 
 public class ConnectionInit {
 
