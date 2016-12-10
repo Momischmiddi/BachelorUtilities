@@ -42,10 +42,15 @@ public class InsertQueries {
 		int topicID = getLastInsertedKey();
 		int insertStatus;
 		insertStatus = executeInsertStatement(topic.getAuthor(), topicID);
-		insertStatus = executeInsertStatement(topic.getDate(), topicID);
 		insertStatus = executeInsertStatement(topic.getGrade(), topicID);
 		insertStatus = executeInsertStatement(topic.getExpertOpinion(), topicID);
 		insertStatus = executeInsertStatement(topic.getSecondOpinion(), topicID);
+		try {
+			insertNewDate(topic.getDate(), topicID);
+		} catch (SQLException e) {
+			System.err.println("Error adding Dates");
+			e.printStackTrace();
+		}
 		return insertStatus;
 	}
 
@@ -55,7 +60,6 @@ public class InsertQueries {
 	public int executeInsertStatement(Object DBTable, int topicID) throws NoTitleException {
 		Boolean isSaved;// ToDo: Rollback bei false
 		try {
-			System.out.println(DBTable.getClass());
 			if (DBTable instanceof Grade) {
 				insertNewGrade((Grade) DBTable);
 				isSaved = makeReferenceToTopic(topicID, DBStructure.TABLE_GRADE);
@@ -64,9 +68,8 @@ public class InsertQueries {
 				insertNewAuthor((Author) DBTable);
 				isSaved = makeReferenceToTopic(topicID, DBStructure.TABLE_AUTHOR);
 			}
-			if (DBTable instanceof ArrayList) {
-				for (Date dateToInsert : (ArrayList<Date>)DBTable)
-				insertNewDate((Date) dateToInsert, topicID);
+			if (DBTable instanceof Date) {
+				insertNewDate((Date) DBTable, topicID);
 			}
 			if (DBTable instanceof SecondOpinion) {
 				insertNewSecondOpinion((SecondOpinion) DBTable);
@@ -187,29 +190,37 @@ public class InsertQueries {
 	}
 
 	private void insertNewDate(Date date, int topicID) throws SQLException {
+		ArrayList<Date> dates = new ArrayList<Date>();
+		dates.add(date);
+		insertNewDate(dates, topicID);
+	}
+
+	private void insertNewDate(ArrayList<Date> dates, int topicID)throws SQLException {
 		String insertStatement = "INSERT INTO " + DBStructure.TABLE_DATE + " (";
 		String insertValues = "VALUES(";
 
-		if (date != null) {
-			if (date.getDate() != null) {
-				insertStatement += DBStructure.TABLE_DATE_MEETING_DATE + ",";
-				insertValues += "\"" + date.getDate() + "\",";
+		for(Date date : dates){
+			if (date != null) {
+				if (date.getDate() != null) {
+					insertStatement += DBStructure.TABLE_DATE_MEETING_DATE + ",";
+					insertValues += "\"" + date.getDate() + "\",";
+				}
+				if (date.getName() != null) {
+					insertStatement += DBStructure.TABLE_DATE_NAME + ",";
+					insertValues += "\"" + date.getName() + "\",";
+				}
 			}
-			if (date.getName() != null) {
-				insertStatement += DBStructure.TABLE_DATE_NAME + ",";
-				insertValues += "\"" + date.getName() + "\",";
-			}
+
+			insertStatement += DBStructure.TABLE_DATE_TOPIC;
+			insertValues += topicID;
+
+			insertStatement += ")";
+			insertValues += ");";
+
+			dbconnection.getStatement().executeUpdate(insertStatement + insertValues, Statement.RETURN_GENERATED_KEYS);
 		}
-
-		insertStatement += DBStructure.TABLE_DATE_TOPIC;
-		insertValues += topicID;
-
-		insertStatement += ")";
-		insertValues += ");";
-
-		dbconnection.getStatement().executeUpdate(insertStatement + insertValues, Statement.RETURN_GENERATED_KEYS);
 	}
-
+	
 	private void insertNewAuthor(Author author) throws SQLException {
 		String insertStatement = "INSERT INTO " + DBStructure.TABLE_AUTHOR + " (";
 		String insertValues = "VALUES(";
