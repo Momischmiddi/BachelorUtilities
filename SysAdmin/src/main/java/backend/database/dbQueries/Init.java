@@ -21,28 +21,14 @@ public class Init {
 		try {
 			dbconnection.getStatement().execute(createTable);
 		} catch (SQLException e) {
-			// TODO delete comments
-//			System.out.println("Error creating Database");
-//			e.printStackTrace();
+			System.out.println("Error creating Database");
+			e.printStackTrace();
 		}
 		System.out.println("Successful created database "+ DBStructure.MAIN_DATABASE +"");
 	}
 	
 	private void createTables(){
 		Statement statement = dbconnection.getStatement();
-
-//		try {
-//			statement.execute("DROP TABLE date");
-//			statement.execute("DROP TABLE topic");
-//			statement.execute("DROP TABLE expert_opinion");
-//			statement.execute("DROP TABLE author");
-//			statement.execute("DROP TABLE grade");
-//			statement.execute("DROP TABLE second_opinion");
-//		} catch (SQLException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}      
-		
 		try {
 			createAuthor(statement);
 			createExpertOpinion(statement);
@@ -55,6 +41,12 @@ public class Init {
 			System.out.println("Error creating Tables");
 			e.printStackTrace();
 		}		
+		// Comment this, if state is unknown
+//		try {
+//			statement.execute("ALTER TABLE Topic ADD state BOOL");
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
+//		}
 	}
 
 	private void createTopic(Statement statement) throws SQLException {

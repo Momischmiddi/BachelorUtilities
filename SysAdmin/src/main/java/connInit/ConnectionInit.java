@@ -1,8 +1,16 @@
 package connInit;
 
+import backend.database.dbClasses.Author;
+import backend.database.dbClasses.Date;
+import backend.database.dbClasses.ExpertOpinion;
+import backend.database.dbClasses.Grade;
+import backend.database.dbClasses.SecondOpinion;
+import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbConnection.DBCredentials;
-import backend.database.dbConnection.DBOpenConnection;;
+import backend.database.dbConnection.DBOpenConnection;
+import backend.database.dbExceptions.NoTitleException;
+import backend.database.dbQueries.InsertQueries;;
 
 public class ConnectionInit {
 
@@ -20,43 +28,8 @@ public class ConnectionInit {
 		DBOpenConnection openConnection = new DBOpenConnection();
 		try {
 			connection = openConnection.createConnection(credentials);
-//			for(int i = 0; i<20;i++){
-//				Topic topic = new Topic();
-//				topic.setTitle("Topic " + i);
-//				topic.setDescription("Description for Topic " + i);
-//				
-//				Author author = new Author();
-//				author.setForename("Sebastian " + i);
-//				author.setName("Lohr" + i);
-//				author.setMatriculationNumber(26044);
-//				
-//				ExpertOpinion expertOpinion = new ExpertOpinion();
-//				expertOpinion.setForename("Tobias" + i);
-//				expertOpinion.setName("Eggendorfer" + i);
-//				expertOpinion.setOpinion("ganz ok ..." + i);
-//				
-//				SecondOpinion secondOpinion = new SecondOpinion();
-//				secondOpinion.setForename("Thorsten" + i);
-//				secondOpinion.setName("Weiss" + i);
-//				secondOpinion.setOpinion("find ich gut!" + i);
-//				
-//				Grade grade = new Grade();
-//				grade.setGrade(1+(i)/10);
-//				
-//				topic.setAuthor(author);
-//				topic.setExpertOpinion(expertOpinion);
-//				topic.setSecondOpinion(secondOpinion);
-//				topic.setGrade(grade);
-//				insert.insertNewTopic(topic);
-//			}
-//			for(int i = 0; i<20;i++){
-//				for(int j =0; j<20; j++){
-//					Date date = new Date();
-//					date.setDate("2016-10-" + j);
-//					date.setName("Meeting nr. " + j);
-//					insert.executeInsertStatement(date, i+1);
-//				}
-//			}
+			InsertQueries insert = new InsertQueries(connection);
+//			createTestData(insert);
 			return true;
 			
 		} catch (Exception e) {
@@ -64,6 +37,46 @@ public class ConnectionInit {
 			e.printStackTrace();
 			return false;
 		} 
+	}
+
+	private void createTestData(InsertQueries insert) throws NoTitleException {
+		for(int i = 0; i<20;i++){
+			Topic topic = new Topic();
+			topic.setTitle("Topic " + i);
+			topic.setDescription("Description for Topic " + i);
+			
+			Author author = new Author();
+			author.setForename("Sebastian " + i);
+			author.setName("Lohr" + i);
+			author.setMatriculationNumber(26044);
+			
+			ExpertOpinion expertOpinion = new ExpertOpinion();
+			expertOpinion.setForename("Tobias" + i);
+			expertOpinion.setName("Eggendorfer" + i);
+			expertOpinion.setOpinion("ganz ok ..." + i);
+			
+			SecondOpinion secondOpinion = new SecondOpinion();
+			secondOpinion.setForename("Thorsten" + i);
+			secondOpinion.setName("Weiss" + i);
+			secondOpinion.setOpinion("find ich gut!" + i);
+			
+			Grade grade = new Grade();
+			grade.setGrade(1+(i)/10);
+			
+			topic.setAuthor(author);
+			topic.setExpertOpinion(expertOpinion);
+			topic.setSecondOpinion(secondOpinion);
+			topic.setGrade(grade);
+			insert.insertNewTopic(topic);
+		}
+		for(int i = 0; i<20;i++){
+			for(int j =0; j<20; j++){
+				Date date = new Date();
+				date.setDate("2016-10-" + j);
+				date.setName("Meeting nr. " + j);
+				insert.executeInsertStatement(date, i+1);
+			}
+		}
 	}
 
 	public DBConnection getConnection() {

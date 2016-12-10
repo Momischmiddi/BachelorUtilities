@@ -1,19 +1,22 @@
 package frontend.topic;
 
+import java.beans.Visibility;
+
 import backend.database.dbClasses.Topic;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
 import frontend.LoginPane;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,10 +25,15 @@ public class ListTopicsWindow extends Stage {
 	private ListView<ListTopicEntry> list;
 	private Stage primaryStage;
 	private DeleteQueries deleteQueries;
+	private Scene scene;
+	private SearchQueries searchQueries;
+	private InsertQueries insertQueries;
 
 	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries, InsertQueries insertQueries,
 			DeleteQueries deleteQueries) {
 		this.primaryStage = primaryStage;
+		this.searchQueries = searchQueries;
+		this.insertQueries = insertQueries;
 		this.deleteQueries = deleteQueries;
 
 		setTitle("Übersicht Projektarbeiten");
@@ -37,12 +45,12 @@ public class ListTopicsWindow extends Stage {
 		setY(primaryStage.getY() + 100);
 
 		list = initComponents(searchQueries, insertQueries);
-		setLayout();
 
+		setLayout();
 	}
 
 	private void setLayout() {
-		Scene scene = new Scene(list, getWidth(), getHeight());
+		scene = new Scene(list, getWidth(), getHeight());
 		scene.getStylesheets().add(LoginPane.cssFile);
 		setScene(scene);
 		show();
@@ -81,7 +89,14 @@ public class ListTopicsWindow extends Stage {
 
 				if (alert.showAndWait().get() == ButtonType.OK) {
 					deleteQuery.deleteTopic(topic.getID());
-					list.refresh();
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							close();
+							list = initComponents(searchQueries, insertQueries);
+							setLayout();
+						}
+					});
 				}
 			}
 		};
