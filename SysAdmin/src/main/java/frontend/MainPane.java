@@ -35,6 +35,7 @@ public class MainPane extends StackPane {
 	private SearchQueries searchQueries;
 	private InsertQueries insertQueries;
 	private DeleteQueries deleteQueries;
+	private DatePickerExtended datePickerExtended;
 
 	public MainPane(Stage primaryStage, DBConnection dbConnection) {
 		this.primaryStage = primaryStage;
@@ -46,14 +47,13 @@ public class MainPane extends StackPane {
 
 		initComponents();
 		listQueries();
-
 	}
 
 	private void listQueries() {
 		ArrayList<Topic> topics = searchQueries.searchAllTopics();
 
 		for (Topic topic : topics) {
-			System.out.println(topic.toString());
+			datePickerExtended.append(topic);
 		}
 	}
 
@@ -123,7 +123,7 @@ public class MainPane extends StackPane {
 		calendarPane.getStyleClass().add("pane");
 
 		try {
-			DatePickerExtended datePickerExtended = new DatePickerExtended(LocalDate.now(), currentDateInfo);
+			datePickerExtended = new DatePickerExtended(LocalDate.now(), currentDateInfo);
 			final DatePickerSkin datePickerSkin = new DatePickerSkin(datePickerExtended);
 			final DatePickerContent calendar = (DatePickerContent) datePickerSkin.getPopupContent();
 			calendar.setMinWidth(width * 0.6);

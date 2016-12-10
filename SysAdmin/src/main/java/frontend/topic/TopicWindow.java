@@ -31,26 +31,23 @@ import javafx.stage.Stage;
 public class TopicWindow extends Stage {
 	private GridPane grid = new GridPane();
 	
-	private TextField tfTitle = new TextField("<Titel>");
 	
 	private DatePickerExtended dpEndDate = new DatePickerExtended(LocalDate.now());
 	
-	private TextField tfAuthorFirstName = new TextField("<Vorname>");
-	private TextField tfAuthorLastName = new TextField("<Nachname>");
-	private TextField tfAuthorMatrNr = new TextField("<Matrikelnummer>");
+	private TextField tfTitle = new TextField("<Titel>"),
+			tfAuthorFirstName = new TextField("<Vorname>"),
+			tfAuthorLastName = new TextField("<Nachname>"),
+			tfAuthorMatrNr = new TextField("<Matrikelnummer>"),
+			tfProofReaderFirstName = new TextField("<Vorname>"),
+			tfProofReaderLastName = new TextField("<Nachname>"),
+			tfFirstName = new TextField("<Vorname>"),
+			tfLastName = new TextField("<Nachname>");
 	
-	private TextField tfProofReaderFirstName = new TextField("<Vorname>");
-	private TextField tfProofReaderLastName = new TextField("<Nachname>");
-	
-	private TextField tfFirstName = new TextField("<Vorname>");
-	private TextField tfLastName = new TextField("<Nachname>");
-	
-	private TextArea taDescription = new TextArea("Projektbeschreibung....");
-	
-	private Button buttonOK = new Button("OK");
-	private Button buttonCancel = new Button("Abbrechen");
-	private Button buttonGenerate = new Button("Beurteilung generieren");
+	private Button buttonOK = new Button("OK"),
+			buttonCancel = new Button("Abbrechen"),
+			buttonGenerate = new Button("Beurteilung generieren");
 
+	private TextArea taDescription = new TextArea("Projektbeschreibung....");
 	private InsertQueries insertQueries;
 	private DeleteQueries deleteQueries;
 
@@ -74,6 +71,7 @@ public class TopicWindow extends Stage {
 
 	public TopicWindow(Stage primaryStage, InsertQueries insertQueries, DeleteQueries deleteQueries, Topic topic) {
 		this(primaryStage, insertQueries);
+		setTitle("Projektarbeit bearbeiten...");
 		this.deleteQueries = deleteQueries;
 		insertInformation(topic);
 	}

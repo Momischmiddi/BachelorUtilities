@@ -3,6 +3,8 @@ package frontend.calendar;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import backend.database.dbClasses.Date;
+import backend.database.dbClasses.Topic;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.util.StringConverter;
@@ -14,7 +16,7 @@ public class DatePickerExtended extends DatePicker {
 
 	public DatePickerExtended(LocalDate now, Label label) {
 		this(now);
-		setOnAction(e -> label.setText("Ausgewähltes Datum: " + getValue().format(dateFormatter).toString()));
+		setOnAction(e -> label.setText("Ausgewähltes Datum: " + getValue().toString()));
 	}
 
 	public DatePickerExtended(LocalDate now) {
@@ -51,5 +53,13 @@ public class DatePickerExtended extends DatePicker {
 				}
 			}
 		});
+	}
+
+	public void append(Topic topic) {
+		for (Date date : topic.getDate()) {
+			java.sql.Date sqlDate = null;
+			
+			
+		}
 	}
 }

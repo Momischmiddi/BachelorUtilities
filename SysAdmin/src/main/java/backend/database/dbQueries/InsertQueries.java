@@ -3,6 +3,7 @@ package backend.database.dbQueries;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import backend.database.DBStructure;
 import backend.database.dbClasses.Author;
@@ -41,6 +42,7 @@ public class InsertQueries {
 		int topicID = getLastInsertedKey();
 		int insertStatus;
 		insertStatus = executeInsertStatement(topic.getAuthor(), topicID);
+		insertStatus = executeInsertStatement(topic.getDate(), topicID);
 		insertStatus = executeInsertStatement(topic.getGrade(), topicID);
 		insertStatus = executeInsertStatement(topic.getExpertOpinion(), topicID);
 		insertStatus = executeInsertStatement(topic.getSecondOpinion(), topicID);
@@ -53,6 +55,7 @@ public class InsertQueries {
 	public int executeInsertStatement(Object DBTable, int topicID) throws NoTitleException {
 		Boolean isSaved;// ToDo: Rollback bei false
 		try {
+			System.out.println(DBTable.getClass());
 			if (DBTable instanceof Grade) {
 				insertNewGrade((Grade) DBTable);
 				isSaved = makeReferenceToTopic(topicID, DBStructure.TABLE_GRADE);
@@ -61,8 +64,9 @@ public class InsertQueries {
 				insertNewAuthor((Author) DBTable);
 				isSaved = makeReferenceToTopic(topicID, DBStructure.TABLE_AUTHOR);
 			}
-			if (DBTable instanceof Date) {
-				insertNewDate((Date) DBTable, topicID);
+			if (DBTable instanceof ArrayList) {
+				for (Date dateToInsert : (ArrayList<Date>)DBTable)
+				insertNewDate((Date) dateToInsert, topicID);
 			}
 			if (DBTable instanceof SecondOpinion) {
 				insertNewSecondOpinion((SecondOpinion) DBTable);

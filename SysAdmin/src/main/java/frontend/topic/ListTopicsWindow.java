@@ -1,7 +1,5 @@
 package frontend.topic;
 
-import java.beans.Visibility;
-
 import backend.database.dbClasses.Topic;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
