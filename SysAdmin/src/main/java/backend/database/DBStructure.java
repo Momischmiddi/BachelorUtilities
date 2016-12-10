@@ -44,12 +44,14 @@ public final class DBStructure {
 	
 	//Expert_Opinion
 	public static final String TABLE_EXPERT_OPINION 			= "Expert_Opinion";
+	public static final String TABLE_EXPERT_OPINION_TITLE		= "title";
 	public static final String TABLE_EXPERT_OPINION_NAME 		= "name";
 	public static final String TABLE_EXPERT_OPINION_FORENAME 	= "forename";
 	public static final String TABLE_EXPERT_OPINION_OPINION 	= "opinion";
 	
 	//Second_Opinion
 	public static final String TABLE_SECOND_OPINION	 			= "Second_Opinion";
+	public static final String TABLE_SECOND_OPINION_TITLE		= "title";
 	public static final String TABLE_SECOND_OPINION_NAME 		= "name";
 	public static final String TABLE_SECOND_OPINION_FORENAME 	= "forename";
 	public static final String TABLE_SECOND_OPINION_OPINION 	= "opinion";

@@ -71,6 +71,7 @@ public class SearchQueries {
 			tmpTopic.setID(searchResults.getInt("ID"));
 			tmpTopic.setTitle(searchResults.getString(DBStructure.TABLE_TOPIC_TITLE));
 			tmpTopic.setDescription(searchResults.getString(DBStructure.TABLE_TOPIC_DESCRIPTION));
+			tmpTopic.setFinished(searchResults.getInt(DBStructure.TABLE_TOPIC_STATE));
 			
 			int authorID = searchResults.getInt(DBStructure.TABLE_TOPIC_AUTHOR);
 			int gradeID = searchResults.getInt(DBStructure.TABLE_TOPIC_GRADE);
@@ -192,6 +193,7 @@ public class SearchQueries {
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
 				if(searchResults.next()){
+					secondOpinion.setTitle((searchResults.getString(DBStructure.TABLE_SECOND_OPINION_TITLE)));
 					secondOpinion.setForename((searchResults.getString(DBStructure.TABLE_SECOND_OPINION_FORENAME)));
 					secondOpinion.setName((searchResults.getString(DBStructure.TABLE_SECOND_OPINION_NAME)));
 					secondOpinion.setOpinion((searchResults.getString(DBStructure.TABLE_SECOND_OPINION_OPINION)));
@@ -221,6 +223,7 @@ public class SearchQueries {
 			try {
 				searchResults = tmpStatement.executeQuery(searchString);
 				if(searchResults.next()){
+					expertOpinion.setTitle((searchResults.getString(DBStructure.TABLE_EXPERT_OPINION_TITLE)));
 					expertOpinion.setForename((searchResults.getString(DBStructure.TABLE_EXPERT_OPINION_FORENAME)));
 					expertOpinion.setName((searchResults.getString(DBStructure.TABLE_EXPERT_OPINION_NAME)));
 					expertOpinion.setOpinion((searchResults.getString(DBStructure.TABLE_EXPERT_OPINION_OPINION)));

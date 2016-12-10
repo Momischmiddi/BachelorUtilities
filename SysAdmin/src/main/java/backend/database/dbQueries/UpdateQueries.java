@@ -221,6 +221,10 @@ public class UpdateQueries {
 		String whereClause = " WHERE ID = " + entryID;
 
 		if (secondOpinion != null) {
+			if (secondOpinion.getTitle() != null) {
+				insertValues += DBStructure.TABLE_SECOND_OPINION_TITLE + "=";
+				insertValues += "\"" + secondOpinion.getTitle() + "\",";
+			}
 			if (secondOpinion.getForename() != null) {
 				insertValues += DBStructure.TABLE_SECOND_OPINION_FORENAME + "=";
 				insertValues += "\"" + secondOpinion.getForename() + "\",";
@@ -246,6 +250,10 @@ public class UpdateQueries {
 		String whereClause = " WHERE ID = " + entryID;
 
 		if (expertOpinion != null) {
+			if (expertOpinion.getTitle() != null) {
+				insertValues += DBStructure.TABLE_EXPERT_OPINION_TITLE + "=";
+				insertValues += "\"" + expertOpinion.getTitle() + "\",";
+			}
 			if (expertOpinion.getForename() != null) {
 				insertValues += DBStructure.TABLE_EXPERT_OPINION_FORENAME + "=";
 				insertValues += "\"" + expertOpinion.getForename() + "\",";
