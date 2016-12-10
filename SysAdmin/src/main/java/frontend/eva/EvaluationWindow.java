@@ -2,6 +2,7 @@ package frontend.eva;
 
 import backend.database.dbClasses.Author;
 import backend.database.dbClasses.ExpertOpinion;
+import backend.database.dbClasses.Grade;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
 import frontend.LoginPane;
@@ -63,7 +64,7 @@ public class EvaluationWindow extends Stage {
 		setTitle("Projektarbeit beurteilen...");
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
-		setWidth(670);
+		setWidth(730);
 		setHeight(670);
 		setX(primaryStage.getX() + 250);
 		setY(primaryStage.getY() + 100);
@@ -87,7 +88,7 @@ public class EvaluationWindow extends Stage {
 		rbMaster.setToggleGroup(group);
 		rbProject.setToggleGroup(group);
 		
-		tfSignings.setPrefWidth(453);
+		tfSignings.setPrefWidth(500);
 	}
 
 	private void setLayout() {
