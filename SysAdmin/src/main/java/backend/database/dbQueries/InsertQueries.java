@@ -123,6 +123,10 @@ public class InsertQueries {
 		String insertValues = "VALUES(";
 
 		if (expertOpinion != null) {
+			if (expertOpinion.getTitle() != null) {
+				insertStatement += DBStructure.TABLE_EXPERT_OPINION_TITLE + ",";
+				insertValues += "\"" + expertOpinion.getTitle() + "\",";
+			}
 			if (expertOpinion.getForename() != null) {
 				insertStatement += DBStructure.TABLE_EXPERT_OPINION_FORENAME + ",";
 				insertValues += "\"" + expertOpinion.getForename() + "\",";
@@ -151,6 +155,10 @@ public class InsertQueries {
 		String insertValues = "VALUES(";
 
 		if (secondOpinion != null) {
+			if (secondOpinion.getTitle() != null) {
+				insertStatement += DBStructure.TABLE_SECOND_OPINION_TITLE + ",";
+				insertValues += "\"" + secondOpinion.getTitle() + "\",";
+			}
 			if (secondOpinion.getForename() != null) {
 				insertStatement += DBStructure.TABLE_SECOND_OPINION_FORENAME + ",";
 				insertValues += "\"" + secondOpinion.getForename() + "\",";

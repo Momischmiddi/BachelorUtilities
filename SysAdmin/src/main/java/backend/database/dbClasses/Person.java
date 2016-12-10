@@ -2,9 +2,16 @@ package backend.database.dbClasses;
 
 public class Person {
 
+	private String title;
 	private String name;
 	private String forename;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getName() {
 		return name;
 	}
@@ -17,6 +24,7 @@ public class Person {
 	public void setForename(String forename) {
 		this.forename = forename;
 	}
+	
 	
 	
 }
