@@ -41,9 +41,9 @@ public class Init {
 			System.out.println("Error creating Tables");
 			e.printStackTrace();
 		}		
-		// Comment this, if state is unknown
+		// Comment this, if something is unknown
 //		try {
-//			statement.execute("ALTER TABLE Topic ADD state BOOL");
+//			statement.execute("ALTER TABLE "+ DBStructure.TABLE_SECOND_OPINION +" ADD " + DBStructure.TABLE_EXPERT_OPINION_TITLE + " VARCHAR(50)");
 //		} catch (SQLException e1) {
 //			e1.printStackTrace();
 //		}

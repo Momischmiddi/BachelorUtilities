@@ -28,13 +28,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainPane extends StackPane {
+	public static SearchQueries searchQueries;
+	public static InsertQueries insertQueries;
+	public static DeleteQueries deleteQueries;
+
 	private Stage primaryStage;
 	private double height;
 	private double width;
 	private Label currentDateInfo = new Label("Hello There!");
-	private SearchQueries searchQueries;
-	private InsertQueries insertQueries;
-	private DeleteQueries deleteQueries;
 	private DatePickerExtended datePickerExtended;
 
 	public MainPane(Stage primaryStage, DBConnection dbConnection) {
@@ -106,8 +107,8 @@ public class MainPane extends StackPane {
 				buttonShowTopics = new Button("Alle Projekte anzeigen"),
 				buttonShowEvaluation = new Button("Evaluierungsbogen erstellen");
 
-		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage, insertQueries));
-		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage, searchQueries, insertQueries, deleteQueries));
+		buttonNewTopic.setOnAction(e -> new TopicWindow(primaryStage));
+		buttonShowTopics.setOnAction(e -> new ListTopicsWindow(primaryStage));
 		buttonShowEvaluation.setOnAction(e -> new EvaluationWindow(primaryStage));
 		
 		VBox content = new VBox(11, buttonNewTopic, buttonShowTopics, buttonShowEvaluation);

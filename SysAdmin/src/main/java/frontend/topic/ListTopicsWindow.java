@@ -5,6 +5,7 @@ import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
 import frontend.LoginPane;
+import frontend.MainPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,12 +28,15 @@ public class ListTopicsWindow extends Stage {
 	private SearchQueries searchQueries;
 	private InsertQueries insertQueries;
 
-	public ListTopicsWindow(Stage primaryStage, SearchQueries searchQueries, InsertQueries insertQueries,
-			DeleteQueries deleteQueries) {
+	public ListTopicsWindow(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.searchQueries = searchQueries;
-		this.insertQueries = insertQueries;
-		this.deleteQueries = deleteQueries;
+		
+		if (null != MainPane.searchQueries)
+		this.searchQueries = MainPane.searchQueries;
+		if (null != MainPane.insertQueries)
+		this.insertQueries = MainPane.insertQueries;
+		if (null != MainPane.deleteQueries)
+		this.deleteQueries = MainPane.deleteQueries;
 
 		setTitle("Übersicht Projektarbeiten");
 		setResizable(false);
@@ -42,8 +46,7 @@ public class ListTopicsWindow extends Stage {
 		setX(primaryStage.getX() + 250);
 		setY(primaryStage.getY() + 100);
 
-		list = initComponents(searchQueries, insertQueries);
-
+		list = initComponents();
 		setLayout();
 	}
 
@@ -54,10 +57,10 @@ public class ListTopicsWindow extends Stage {
 		show();
 	}
 
-	private ListView<ListTopicEntry> initComponents(SearchQueries searchQueries, InsertQueries insertQueries) {
+	private ListView<ListTopicEntry> initComponents() {
+		if (null == searchQueries || null == insertQueries || null == deleteQueries) return null;
 		list = new ListView<ListTopicEntry>();
 		ObservableList<ListTopicEntry> items = FXCollections.observableArrayList();
-
 		for (Topic topic : searchQueries.searchAllTopics()) {
 			EventHandler<ActionEvent> detailViewHandler = initEventHandlerForDetailView(topic, insertQueries);
 			EventHandler<ActionEvent> deleteHandler = initEventHandlerForDeletion(topic, deleteQueries);
@@ -71,7 +74,7 @@ public class ListTopicsWindow extends Stage {
 		EventHandler<ActionEvent> detailHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				new TopicWindow(primaryStage, insertQueries, deleteQueries, topic);
+				new TopicWindow(primaryStage, topic);
 			}
 		};
 		return detailHandler;
@@ -91,7 +94,7 @@ public class ListTopicsWindow extends Stage {
 						@Override
 						public void run() {
 							close();
-							list = initComponents(searchQueries, insertQueries);
+							list = initComponents();
 							setLayout();
 						}
 					});

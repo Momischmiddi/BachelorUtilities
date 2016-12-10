@@ -1,7 +1,6 @@
 package frontend.topic;
 
 import backend.database.dbClasses.Topic;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 
 public class ListTopicEntry extends Pane {
 	
@@ -26,15 +24,6 @@ public class ListTopicEntry extends Pane {
 		setLayout();
 	}
 	
-	public static Callback<ListTopicEntry, Observable[]> extract() {
-		return new Callback<ListTopicEntry, Observable[]>() {
-			@Override
-			public Observable[] call(ListTopicEntry arg0) {
-				return new Observable[]{labelTitle, labelAuthor, labelState};
-			}
-		};
-	}
-
 	private void setLayout() {
 		GridPane gridLayout = new GridPane();
 		gridLayout.add(new HBox(new Label(labelTitle.get()), new Label(labelAuthor.get()), new Label(labelState.get())), 0, 0);

@@ -1,4 +1,4 @@
-package frontend.calendar;
+package frontend.calendar.popupWindows;
 
 import java.time.LocalDate;
 
@@ -12,9 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CalendarCellPopupMenu extends Stage {
-	Button btnAdd = new Button("Termin anlegen");
-	Button btnDelete = new Button("Termin löschen");
-	Button btnMove = new Button("Termin verschieben");
+	Button btnAdd = new Button("Termin anlegen"),
+			btnDelete = new Button("Termin löschen"),
+			btnMove = new Button("Termin verschieben");
 
 	public CalendarCellPopupMenu(LocalDate value, double x, double y) {
 		setTitle("Kalendereintrag analysieren");
@@ -32,13 +32,8 @@ public class CalendarCellPopupMenu extends Stage {
 		
 		
 		// TODO Load Information about this day
-		// setGraphic(new
-		// ImageView(getClass().getResource("/Images/Calendar-16.png").toString()));
-
-//		grid.setPadding(new Insets(10));
-//		grid.setHgap(10);
-//		grid.setVgap(10);
-
+		btnAdd.setOnAction(e -> showChooseTopicWindow());
+		
 		VBox vBox = new VBox(10, btnAdd, btnDelete, btnMove);
 	    vBox.setPadding(new Insets(10, 50, 50, 50));
 		vBox.setOnKeyPressed(e -> { if (e.getCode() == KeyCode.ESCAPE) close(); });
@@ -46,5 +41,10 @@ public class CalendarCellPopupMenu extends Stage {
 		scene.getStylesheets().add(LoginPane.cssFile);
 		setScene(scene);
 		show();
+	}
+
+	private void showChooseTopicWindow() {
+		close();
+		new ChooseTopicWindow(getX(), getY());
 	}
 }

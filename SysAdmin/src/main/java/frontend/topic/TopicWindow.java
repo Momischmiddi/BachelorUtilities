@@ -13,6 +13,7 @@ import backend.database.dbExceptions.NoTitleException;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import frontend.LoginPane;
+import frontend.MainPane;
 import frontend.calendar.DatePickerExtended;
 import frontend.eva.EvaluationWindow;
 import javafx.event.ActionEvent;
@@ -30,8 +31,6 @@ import javafx.stage.Stage;
 
 public class TopicWindow extends Stage {
 	private GridPane grid = new GridPane();
-	
-	
 	private DatePickerExtended dpEndDate = new DatePickerExtended(LocalDate.now());
 	
 	private TextField tfTitle = new TextField("<Titel>"),
@@ -53,10 +52,12 @@ public class TopicWindow extends Stage {
 
 	private Stage primaryStage;
 
-
-	public TopicWindow(Stage primaryStage, InsertQueries insertQueries) {
+	public TopicWindow(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.insertQueries = insertQueries;
+		
+		if (MainPane.insertQueries != null)
+		this.insertQueries = MainPane.insertQueries;
+		
 		setTitle("Projektarbeit erstellen...");
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
@@ -65,14 +66,15 @@ public class TopicWindow extends Stage {
 		setX(primaryStage.getX() + 250);
 		setY(primaryStage.getY() + 100);
 		
-		initComponents(insertQueries);
+		initComponents();
 		setLayout();
 	}
 
-	public TopicWindow(Stage primaryStage, InsertQueries insertQueries, DeleteQueries deleteQueries, Topic topic) {
-		this(primaryStage, insertQueries);
+	public TopicWindow(Stage primaryStage, Topic topic) {
+		this(primaryStage);
 		setTitle("Projektarbeit bearbeiten...");
-		this.deleteQueries = deleteQueries;
+		if (null != MainPane.deleteQueries)
+		this.deleteQueries = MainPane.deleteQueries;
 		insertInformation(topic);
 	}
 
@@ -90,6 +92,7 @@ public class TopicWindow extends Stage {
 		buttonOK.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				if (null == deleteQueries) return;
 				deleteQueries.deleteTopic(topic.getID());
 				saveTopic();
 			}
@@ -125,7 +128,7 @@ public class TopicWindow extends Stage {
 		show();
 	}
 
-	private void initComponents(InsertQueries insertQueries) {
+	private void initComponents() {
 		
 		grid.setPadding(new Insets(10));
 		grid.setHgap(10);
@@ -149,6 +152,7 @@ public class TopicWindow extends Stage {
 			topic.setID(topic.hashCode());
 			topic.setFinished(0);
 			
+			if(null != insertQueries)
 			insertQueries.insertNewTopic(topic);
 			
 		} catch (NoTitleException e) {
