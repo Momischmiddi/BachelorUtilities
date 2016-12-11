@@ -237,7 +237,10 @@ public class EvaluationWindow extends Stage {
 			
 		}
 		
-		generator.generateErstgutachten(topic, "Erstgutachten", "C:\\Users\\Sebastian\\Desktop\\test.html");
+		generator.generateErstgutachten(topic, "Erstgutachten", 
+				"C:\\Users\\Sebastian\\Desktop\\test.html",
+				tfSignings.getText(),
+				tfAuthorCourse.getText());
 		// TODO Generate LibreOffice Document generateDocument(Topic)
 		close();
 	}
