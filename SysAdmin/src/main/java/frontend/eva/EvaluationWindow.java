@@ -6,6 +6,7 @@ import backend.database.dbClasses.Grade;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
 import frontend.LoginPane;
+import generator.Generator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -226,7 +227,17 @@ public class EvaluationWindow extends Stage {
 		topic.setExpertOpinion(validateExpertOpinionInput());
 		topic.setSecondOpinion(validateProofReaderInput());
 		topic.setFinished(1);
-
+		Generator generator = Generator.getInstance();
+		
+		if(rbProject.isSelected()){
+			
+		}else if(rbBachelor.isSelected()){
+		
+		}else if(rbMaster.isSelected()){
+			
+		}
+		
+		generator.generateErstgutachten(topic, "Erstgutachten", "C:\\Users\\Sebastian\\Desktop\\test.html");
 		// TODO Generate LibreOffice Document generateDocument(Topic)
 		close();
 	}
