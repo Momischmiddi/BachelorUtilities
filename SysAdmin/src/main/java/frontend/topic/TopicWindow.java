@@ -44,7 +44,8 @@ public class TopicWindow extends Stage {
 	
 	private Button buttonOK = new Button("OK"),
 			buttonCancel = new Button("Abbrechen"),
-			buttonGenerate = new Button("Beurteilung generieren");
+			buttonGenerate = new Button("Beurteilung generieren"),
+			buttonDeleteDate = new Button("Zurücksetzen");
 
 	private TextArea taDescription = new TextArea("Projektbeschreibung....");
 	private InsertQueries insertQueries;
@@ -108,7 +109,7 @@ public class TopicWindow extends Stage {
 		grid.add(tfAuthorMatrNr, 1, 3);
 		
 		grid.add(new Label("Abgabe am"), 0, 4);		
-		grid.add(dpEndDate, 1, 4);
+		grid.add(new HBox(10, dpEndDate, buttonDeleteDate), 1, 4);
 		
 		grid.add(new Label("Betreuer"), 0, 5);
 		grid.add(tfLastName,1, 5);
@@ -139,6 +140,7 @@ public class TopicWindow extends Stage {
 		buttonCancel.setOnAction(e -> close());
 		buttonOK.setOnAction(e -> saveTopic());
 		buttonGenerate.setOnAction(e -> new EvaluationWindow(saveTopic(), primaryStage));
+		buttonDeleteDate.setOnAction(e -> dpEndDate.setValue(null));
 	}
 
 	private Topic saveTopic() {
@@ -188,8 +190,8 @@ public class TopicWindow extends Stage {
 		Date date = new Date();
 		LocalDate selectedDate = dpEndDate.getValue();
 		String dateAsString = (null != selectedDate) ? 
-								selectedDate.format(DatePickerExtended.dateFormatter).toString() 
-									: LocalDate.MAX.toString(); 
+								selectedDate.format(DatePickerExtended.dateFormatterMurica).toString() 
+									: LocalDate.now().toString(); 
 		date.setDate(dateAsString);
 		date.setName("Endabgabe");
 		
@@ -226,13 +228,13 @@ public class TopicWindow extends Stage {
 	}
 	
 	private LocalDate extractDate(ArrayList<Date> dateList) {
-		if (null == dateList) return LocalDate.MAX;
-		if (1 > dateList.size()) return LocalDate.MAX;
+		if (null == dateList) return LocalDate.now();
+		if (1 > dateList.size()) return LocalDate.now();
 		try { 
-			return (LocalDate) DatePickerExtended.dateFormatter.parse(dateList.get(0).getDate()); 
+			return LocalDate.parse(dateList.get(0).getDate());
 		}
 		catch (DateTimeParseException e) { 
-			return LocalDate.MAX; 
+			return LocalDate.now(); 
 		}
 	}
 	

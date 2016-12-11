@@ -75,6 +75,7 @@ public class ListTopicsWindow extends Stage {
 			@Override
 			public void handle(ActionEvent arg0) {
 				new TopicWindow(primaryStage, topic);
+				close();
 			}
 		};
 		return detailHandler;

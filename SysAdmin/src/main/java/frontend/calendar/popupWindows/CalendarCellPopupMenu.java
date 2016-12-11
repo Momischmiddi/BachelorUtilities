@@ -15,8 +15,10 @@ public class CalendarCellPopupMenu extends Stage {
 	Button btnAdd = new Button("Termin anlegen"),
 			btnDelete = new Button("Termin löschen"),
 			btnMove = new Button("Termin verschieben");
+	private LocalDate selectedDate;
 
 	public CalendarCellPopupMenu(LocalDate value, double x, double y) {
+		this.selectedDate = value;
 		setTitle("Kalendereintrag analysieren");
 
 		setResizable(false);
@@ -32,7 +34,7 @@ public class CalendarCellPopupMenu extends Stage {
 		
 		
 		// TODO Load Information about this day
-		btnAdd.setOnAction(e -> showChooseTopicWindow());
+		btnAdd.setOnAction(e -> showChooseTopicWindow(selectedDate));
 		
 		VBox vBox = new VBox(10, btnAdd, btnDelete, btnMove);
 	    vBox.setPadding(new Insets(10, 50, 50, 50));
@@ -43,8 +45,8 @@ public class CalendarCellPopupMenu extends Stage {
 		show();
 	}
 
-	private void showChooseTopicWindow() {
+	private void showChooseTopicWindow(LocalDate selectedDate) {
 		close();
-		new ChooseTopicWindow(getX(), getY());
+		new ChooseTopicWindow(getX(), getY(), selectedDate);
 	}
 }

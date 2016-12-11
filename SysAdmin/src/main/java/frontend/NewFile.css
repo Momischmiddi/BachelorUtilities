@@ -1,7 +1,6 @@
 .root {
 	-fx-background-color: #CCFF99;
-	-fx-background-image:
-		url("/Images/blue_texture-wallpaper-1920x1080.jpg");
+	-fx-background-image: url("/Images/calendarBG.jpg");
 	-fx-background-size: cover;
 	-fx-font-family: "Tahoma";
 }
@@ -43,6 +42,7 @@
 
 .date-picker-popup {
 	-fx-background-color: blue, lightblue, lightgreen;
+	-fx-background-image: url("/Images/calendarBG.jpg");
 	-fx-background-insets: 0, 1, 1;
 	-fx-background-radius: 1, 2, 3;
 	-fx-alignment: CENTER; /* VBox */
@@ -50,18 +50,11 @@
 	-fx-padding: 0.83333em; /* 1 1 1 1 */
 }
 
-.date-picker-popup>*>.date-cell {
-	-fx-padding: 0;
-	-fx-min-height: 80px;
-	-fx-min-width: 80px;
-	-fx-alignment: BASELINE_CENTER;
-	-fx-opacity: 1.0;
-}
-
 .pane {
 	-fx-border-color: #6495ED;
 	-fx-border-radius: 2, 2, 2, 2;
 	-fx-border-width: 2px;
+	-fx-font-size: 15px;
 }
 
 .scroll-pane>.viewport {

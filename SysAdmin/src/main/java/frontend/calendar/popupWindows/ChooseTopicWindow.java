@@ -1,5 +1,7 @@
 package frontend.calendar.popupWindows;
 
+import java.time.LocalDate;
+
 import backend.database.dbClasses.Topic;
 import backend.database.dbQueries.SearchQueries;
 import frontend.LoginPane;
@@ -25,8 +27,10 @@ public class ChooseTopicWindow extends Stage {
 
 	private SearchQueries searchQueries;
 	private ListView<Pane> list;
+	private LocalDate selectedDate;
 
-	public ChooseTopicWindow(double x, double y) {
+	public ChooseTopicWindow(double x, double y, LocalDate selectedDate) {
+		this.selectedDate = selectedDate;
 		setTitle("Projekt auswählen...");
 
 		setResizable(false);
@@ -59,7 +63,13 @@ public class ChooseTopicWindow extends Stage {
 		gridLayout.add(new HBox(new Label(labelTitle.get()), new Label(labelAuthor.get()), new Label(labelState.get())),
 				0, 0);
 		pane.getChildren().add(gridLayout);
+		pane.setOnMouseReleased(e -> openCreateNewAppointmentWindow(topic));
 		return pane;
+	}
+
+	private void openCreateNewAppointmentWindow(Topic topic) {
+		new NewAppointmentWindow(getX(), getY(), topic, selectedDate); 
+		close();
 	}
 
 	private void initComponents(Topic topic) {

@@ -2,22 +2,40 @@ package frontend.calendar;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.TreeMap;
 
-import backend.database.dbClasses.Date;
 import backend.database.dbClasses.Topic;
 import frontend.calendar.popupWindows.CalendarCellPopupMenu;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 public class DatePickerExtended extends DatePicker {
 
-	public final static String pattern = "dd-MM-yyyy";
-	public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+	private final static String germanPattern = "dd-MM-yyyy";
+	private final static String muricaPattern = "yyyy-MM-dd";
+	public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(germanPattern);
+	public final static DateTimeFormatter dateFormatterMurica = DateTimeFormatter.ofPattern(muricaPattern);
 
-	public DatePickerExtended(LocalDate now, Label label) {
+	public DatePickerExtended(LocalDate now, TreeMap<LocalDate, Topic> dateTreeMap) {
 		this(now);
-		setOnAction(e -> label.setText("Ausgewähltes Datum: " + getValue().toString()));
+		getStyleClass().add("test");
+
+		setDayCellFactory(new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(DatePicker arg0) {
+				return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        
+                        setText("DEINE MUTTER");
+                        setStyle("-fx-min-height: 100px;");
+                    }
+                };
+			}
+		});
 	}
 
 	public DatePickerExtended(LocalDate now) {
@@ -25,11 +43,11 @@ public class DatePickerExtended extends DatePicker {
 		setEditable(false);
 		setShowWeekNumbers(false);
 		setCustomConverter();
-
+		
 		setOnMouseEntered(e -> show());
 		setOnKeyPressed(e -> show());
 	}
-	
+
 	public void showPopUpMenu(double x, double y) {
 		new CalendarCellPopupMenu(getValue(), x, y);
 	}
@@ -54,13 +72,5 @@ public class DatePickerExtended extends DatePicker {
 				}
 			}
 		});
-	}
-
-	public void append(Topic topic) {
-		for (Date date : topic.getDate()) {
-			java.sql.Date sqlDate = null;
-			
-			
-		}
 	}
 }
