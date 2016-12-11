@@ -36,7 +36,7 @@ public class Generator {
     }
 	
 	public void generateErstgutachten(Topic topic, String projectType, String path,String place, String course){
-		Map root = new HashMap();
+		Map<String, String> root = new HashMap<>();
         root.put("ProjectType", projectType);
         root.put("ProjectTitle", "" + topic.getTitle());
         root.put("AuthorLastName", topic.getAuthor().getName());
