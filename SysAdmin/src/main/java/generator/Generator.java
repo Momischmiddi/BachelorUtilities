@@ -24,7 +24,8 @@ public class Generator {
 	private Generator(){
         cfg = new Configuration(Configuration.VERSION_2_3_25);
         try {
-			cfg.setDirectoryForTemplateLoading(new File(System.getProperty("user.dir")+"\\src\\Templates"));
+			cfg.setDirectoryForTemplateLoading(new File(System.getProperty("user.dir")+
+					File.separator + "src" + File.separator + "Templates"));
 			cfg.setDefaultEncoding("UTF-8");
 	        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 	        cfg.setOutputFormat(HTMLOutputFormat.INSTANCE);
