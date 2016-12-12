@@ -222,7 +222,7 @@ public class EvaluationWindow extends Stage {
 
 	private void generateEva() {
 		Topic topic = new Topic();
-		topic.setDescription(validateTopicInput());
+		topic.setTitle(validateTopicInput());
 		topic.setAuthor(validateAuthorInput());
 		topic.setExpertOpinion(validateExpertOpinionInput());
 		topic.setSecondOpinion(validateProofReaderInput());
