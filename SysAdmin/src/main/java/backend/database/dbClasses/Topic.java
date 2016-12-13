@@ -14,6 +14,23 @@ public class Topic {
 	private SecondOpinion secondOpinion;
 	private int isFinished;
 	
+	public Topic() {}
+	
+	/**
+	 * Copy-Constructor
+	 * @param topic copy
+	 */
+	public Topic (Topic topic) {
+		title = topic.getTitle();
+		description = topic.getDescription();
+		author = topic.getAuthor();
+		grade = topic.getGrade();
+		date = topic.getDate();
+		expertOpinion = topic.getExpertOpinion();
+		secondOpinion = topic.getSecondOpinion();
+		isFinished = topic.isFinished();
+	}
+	
 	public int getID() {
 		return ID;
 	}
@@ -90,4 +107,69 @@ public class Topic {
 		builder.append("Stand: " + ((boolIsFinished) ? "Abgeschlossen" : "in Bearbeitung"));
 		return builder.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((expertOpinion == null) ? 0 : expertOpinion.hashCode());
+		result = prime * result + ((grade == null) ? 0 : grade.hashCode());
+		result = prime * result + isFinished;
+		result = prime * result + ((secondOpinion == null) ? 0 : secondOpinion.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Topic other = (Topic) obj;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (expertOpinion == null) {
+			if (other.expertOpinion != null)
+				return false;
+		} else if (!expertOpinion.equals(other.expertOpinion))
+			return false;
+		if (grade == null) {
+			if (other.grade != null)
+				return false;
+		} else if (!grade.equals(other.grade))
+			return false;
+		if (isFinished != other.isFinished)
+			return false;
+		if (secondOpinion == null) {
+			if (other.secondOpinion != null)
+				return false;
+		} else if (!secondOpinion.equals(other.secondOpinion))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
+	
 }

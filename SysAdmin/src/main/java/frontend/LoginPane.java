@@ -3,6 +3,7 @@ package frontend;
 import connInit.ConnectionInit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -70,15 +71,15 @@ public class LoginPane extends StackPane {
 
 	private void login() {
 		ConnectionInit connectionInit = new ConnectionInit();
+		if (connectionInit.init()) {
 			new MainPane(primaryStage, connectionInit.getConnection());
-//		if (connectionInit.init()) {
-//		} else {
-//			Alert alert = new Alert(Alert.AlertType.ERROR);
-//			alert.setContentText("Es konnte keine Verbindung zum Server aufgebaut werden\n Das Programm wird nun beendet");
-//			
-//			alert.show();
-//			primaryStage.close();
-//		}
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText("Es konnte keine Verbindung zum Server aufgebaut werden\n Das Programm wird nun beendet");
+			
+			alert.show();
+			primaryStage.close();
+		}
 	}
 
 	private void checkLoginDetails() {

@@ -48,10 +48,9 @@
 
 .date-picker-popup {
 	-fx-background-color: blue, lightblue, lightgreen;
-	-fx-background-image: url("/Images/calendarBG.jpg");
+	-fx-background-image: url("/Images/blue_texture-wallpaper-1920x1080.jpg");
 	-fx-background-insets: 0, 1, 1;
 	-fx-background-radius: 1, 2, 3;
-	-fx-alignment: CENTER; /* VBox */
 	-fx-spacing: 10; /* VBox */
 	-fx-padding: 0.83333em; /* 1 1 1 1 */
 }

@@ -3,7 +3,6 @@ package frontend.calendar.popupWindows;
 import java.time.LocalDate;
 
 import frontend.IExtendedScene;
-import frontend.LoginPane;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -24,7 +23,7 @@ public class CalendarCellPopupMenu extends Stage {
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
 		setWidth(300);
-		setHeight(130);
+		setHeight(170);
 		setX(x);
 		setY(y);
 
@@ -32,15 +31,20 @@ public class CalendarCellPopupMenu extends Stage {
 		btnDelete.getStyleClass().add("CustomLongButton");
 		btnMove.getStyleClass().add("CustomLongButton");
 		
-		
-		// TODO Load Information about this day
 		btnAdd.setOnAction(e -> showChooseTopicWindow(selectedDate));
+		btnDelete.setOnAction(e -> showChooseAppointmentWindow(selectedDate, true));
+		btnMove.setOnAction(e -> showChooseAppointmentWindow(selectedDate, false));
 		
 		VBox vBox = new VBox(10, btnAdd, btnDelete, btnMove);
 	    vBox.setPadding(new Insets(10, 50, 50, 50));
 		vBox.setOnKeyPressed(e -> { if (e.getCode() == KeyCode.ESCAPE) close(); });
 		setScene(new IExtendedScene(this, vBox, getWidth(), getHeight()));
 		show();
+	}
+
+	private void showChooseAppointmentWindow(LocalDate selectedDate, boolean shouldDelete) {
+		close();
+		new ChooseAppointmentWindow(getX(), getY(), selectedDate, shouldDelete);
 	}
 
 	private void showChooseTopicWindow(LocalDate selectedDate) {

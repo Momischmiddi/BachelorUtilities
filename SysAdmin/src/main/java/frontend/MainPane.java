@@ -7,15 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.sun.javafx.scene.control.skin.DatePickerContent;
-import com.sun.javafx.scene.control.skin.DatePickerSkin;
-
 import backend.database.dbClasses.Date;
 import backend.database.dbClasses.Topic;
 import backend.database.dbConnection.DBConnection;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
+import backend.database.dbQueries.UpdateQueries;
 import frontend.calendar.DatePickerExtended;
 import frontend.dateListPanel.DetailListPane;
 import frontend.eva.EvaluationWindow;
@@ -23,10 +21,7 @@ import frontend.topic.ListTopicsWindow;
 import frontend.topic.TopicWindow;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -36,28 +31,32 @@ public class MainPane extends StackPane {
 	public static SearchQueries searchQueries;
 	public static InsertQueries insertQueries;
 	public static DeleteQueries deleteQueries;
+	public static UpdateQueries updateQueries;
 
 	private Stage primaryStage;
-	private double height;
-	private double width;
+	private final double height;
+	private final double width;
 	private DatePickerExtended datePickerExtended;
 	private TreeMap<LocalDate, Topic> dateTreeMap;
 
 	public MainPane(Stage primaryStage, DBConnection dbConnection) {
 		this.primaryStage = primaryStage;
-
+		height = primaryStage.getHeight();
+		width = primaryStage.getWidth();
 		primaryStage.setOnCloseRequest(closeEvent -> dbConnection.closeConnection());
 
 		searchQueries = new SearchQueries(dbConnection);
 		insertQueries = new InsertQueries(dbConnection);
 		deleteQueries = new DeleteQueries(dbConnection);
-
+		updateQueries = new UpdateQueries(dbConnection);
+		
 		listQueries();
 		initComponents();
 	}
 
 	private void listQueries() {
-		if (null == searchQueries.connection)			return;
+		if (null == searchQueries.connection)
+			return;
 		ArrayList<Topic> topics = searchQueries.searchAllTopics();
 		Map<LocalDate, Topic> dateMap = new HashMap<>();
 
@@ -79,9 +78,6 @@ public class MainPane extends StackPane {
 
 		BorderPane mainContainer = new BorderPane();
 
-		height = primaryStage.getHeight();
-		width = primaryStage.getWidth();
-
 		mainContainer.getStyleClass().add("pane");
 		mainContainer.setPrefSize(width, height);
 		mainContainer.setLeft(initNaviPane());
@@ -97,8 +93,16 @@ public class MainPane extends StackPane {
 		HBox toolBarPane = new HBox();
 		toolBarPane.setPrefSize(width, height * 0.05);
 		toolBarPane.getStyleClass().add("pane");
+		Button btnRefresh = new Button("Refresh");
+		btnRefresh.setOnAction(e -> refresh());
 
+		toolBarPane.getChildren().add(btnRefresh);
 		return toolBarPane;
+	}
+
+	private void refresh() {
+		listQueries();
+		initComponents();
 	}
 
 	private VBox initNaviPane() {
@@ -120,30 +124,16 @@ public class MainPane extends StackPane {
 		return naviPane;
 	}
 
-	private GridPane initCalendarPane() {
-		GridPane calendarPane = new GridPane();
+	private HBox initCalendarPane() {
+		HBox calendarPane = new HBox();
 		calendarPane.setPrefSize(width * 0.6, height);
 		calendarPane.getStyleClass().add("pane");
-
 		try {
 			datePickerExtended = new DatePickerExtended(LocalDate.now(), dateTreeMap);
-			final DatePickerSkin datePickerSkin = new DatePickerSkin(datePickerExtended);
-			final DatePickerContent calendar = (DatePickerContent) datePickerSkin.getPopupContent();
-			calendar.setMinWidth(width * 0.6);
-			calendar.setMinHeight(height);
-			calendarPane.getChildren().add(calendar);
-
-			calendar.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
-				if (e.getButton() == MouseButton.SECONDARY) {
-					datePickerExtended.showPopUpMenu(e.getSceneX(), e.getSceneY());
-				}
-			});
-
+			calendarPane.getChildren().add(datePickerExtended.getCalendar());
 		} catch (final Exception e) {
 			System.out.println("Could not initialize Calendar with given Informations\nLoad blank clander....");
-			calendarPane = new GridPane();
-			calendarPane.setPrefSize(width * 0.6, height * 0.8);
-			calendarPane.getStyleClass().add("pane");
+			calendarPane = new HBox();
 		}
 		return calendarPane;
 	}

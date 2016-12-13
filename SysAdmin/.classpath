@@ -16,7 +16,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_91/jre/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/home/vik/jdk1.8.0_111/jre/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>

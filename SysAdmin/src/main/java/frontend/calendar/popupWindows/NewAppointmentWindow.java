@@ -7,15 +7,12 @@ import backend.database.dbClasses.Topic;
 import backend.database.dbExceptions.NoTitleException;
 import backend.database.dbQueries.InsertQueries;
 import frontend.IExtendedScene;
-import frontend.LoginPane;
 import frontend.MainPane;
 import frontend.calendar.DatePickerExtended;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -39,7 +36,7 @@ public class NewAppointmentWindow extends Stage {
 		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
 		setWidth(320);
-		setHeight(120);
+		setHeight(170);
 		setX(x);
 		setY(y);
 		

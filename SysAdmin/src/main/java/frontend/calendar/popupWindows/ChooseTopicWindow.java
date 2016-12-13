@@ -34,7 +34,7 @@ public class ChooseTopicWindow extends Stage {
 
 		initModality(Modality.APPLICATION_MODAL);
 		setWidth(500);
-		setHeight(500);
+		setHeight(600);
 		setX(x);
 		setY(y);
 
@@ -47,7 +47,7 @@ public class ChooseTopicWindow extends Stage {
 			}
 			list.setItems(items);
 		}
-		setScene(new IExtendedScene(this ,list, getWidth(), getHeight()));
+		setScene(new IExtendedScene(this ,list, getWidth(), 600));
 		show();
 	}
 

@@ -43,6 +43,7 @@ public class UpdateQueries {
 			insertInTopicStatement = createUpdateNewTopicStatement(topic.getID(), topic);
 			connection.getStatement().executeUpdate(insertInTopicStatement, Statement.RETURN_GENERATED_KEYS);
 			updateDataReferencedToTopic(topic.getID(), topic);
+			System.out.println("Correctly update Topic:" + topic.getTitle());
 		} catch (SQLException e) {
 				System.err.println("Error creating new Topic");
 				e.printStackTrace();
