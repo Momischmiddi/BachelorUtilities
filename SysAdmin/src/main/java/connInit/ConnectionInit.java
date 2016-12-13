@@ -20,7 +20,7 @@ public class ConnectionInit {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
-		credentials.setPort(3307);
+		credentials.setPort(8080);
 		credentials.setDatabase("BachelorUtilities");
 		credentials.setUsername("root");
 		credentials.setPassword("");
@@ -28,6 +28,9 @@ public class ConnectionInit {
 		DBOpenConnection openConnection = new DBOpenConnection();
 		try {
 			connection = openConnection.createConnection(credentials);
+			if (null == connection) {
+				return false;
+			}
 			InsertQueries insert = new InsertQueries(connection);
 //			createTestData(insert);
 			return true;

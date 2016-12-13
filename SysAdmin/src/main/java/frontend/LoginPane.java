@@ -63,14 +63,22 @@ public class LoginPane extends StackPane {
 		hbBLoginButton.getChildren().add(btnLogin);
 		grid.add(hbBLoginButton, 0, 5, 2, 1);
 		
+		primaryStage.setMaximized(true);
+		primaryStage.sizeToScene();
 		primaryStage.setScene(new IExtendedScene(primaryStage, grid, 500, 300));
 	}
 
 	private void login() {
 		ConnectionInit connectionInit = new ConnectionInit();
-		if (connectionInit.init()) {
 			new MainPane(primaryStage, connectionInit.getConnection());
-		};
+//		if (connectionInit.init()) {
+//		} else {
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setContentText("Es konnte keine Verbindung zum Server aufgebaut werden\n Das Programm wird nun beendet");
+//			
+//			alert.show();
+//			primaryStage.close();
+//		}
 	}
 
 	private void checkLoginDetails() {

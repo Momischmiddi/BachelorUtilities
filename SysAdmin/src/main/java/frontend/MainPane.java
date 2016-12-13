@@ -45,6 +45,7 @@ public class MainPane extends StackPane {
 
 	public MainPane(Stage primaryStage, DBConnection dbConnection) {
 		this.primaryStage = primaryStage;
+
 		primaryStage.setOnCloseRequest(closeEvent -> dbConnection.closeConnection());
 
 		searchQueries = new SearchQueries(dbConnection);
@@ -56,8 +57,7 @@ public class MainPane extends StackPane {
 	}
 
 	private void listQueries() {
-		if (null == searchQueries)
-			return;
+		if (null == searchQueries.connection)			return;
 		ArrayList<Topic> topics = searchQueries.searchAllTopics();
 		Map<LocalDate, Topic> dateMap = new HashMap<>();
 

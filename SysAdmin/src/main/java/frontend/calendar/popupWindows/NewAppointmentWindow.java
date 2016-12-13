@@ -6,6 +6,7 @@ import backend.database.dbClasses.Date;
 import backend.database.dbClasses.Topic;
 import backend.database.dbExceptions.NoTitleException;
 import backend.database.dbQueries.InsertQueries;
+import frontend.IExtendedScene;
 import frontend.LoginPane;
 import frontend.MainPane;
 import frontend.calendar.DatePickerExtended;
@@ -61,9 +62,7 @@ public class NewAppointmentWindow extends Stage {
 		hBox.setAlignment(Pos.CENTER_RIGHT);
 		grid.add(hBox, 0, 2);
 		
-		Scene scene = new Scene(grid, getWidth(), getHeight());
-		scene.getStylesheets().add(LoginPane.cssFile);
-		setScene(scene);
+		setScene(new IExtendedScene(this, grid, getWidth(), getHeight()));
 		show();
 	}
 

@@ -4,14 +4,13 @@ import backend.database.dbClasses.Topic;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
 import backend.database.dbQueries.SearchQueries;
-import frontend.LoginPane;
+import frontend.IExtendedScene;
 import frontend.MainPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -24,7 +23,6 @@ public class ListTopicsWindow extends Stage {
 	private ListView<ListTopicEntry> list;
 	private Stage primaryStage;
 	private DeleteQueries deleteQueries;
-	private Scene scene;
 	private SearchQueries searchQueries;
 	private InsertQueries insertQueries;
 
@@ -51,14 +49,12 @@ public class ListTopicsWindow extends Stage {
 	}
 
 	private void setLayout() {
-		scene = new Scene(list, getWidth(), getHeight());
-		scene.getStylesheets().add(LoginPane.cssFile);
-		setScene(scene);
+		setScene(new IExtendedScene(this, list, getWidth(), getHeight()));
 		show();
 	}
 
 	private ListView<ListTopicEntry> initComponents() {
-		if (null == searchQueries || null == insertQueries || null == deleteQueries) return null;
+		if (null == searchQueries.connection || null == insertQueries || null == deleteQueries) return null;
 		list = new ListView<ListTopicEntry>();
 		ObservableList<ListTopicEntry> items = FXCollections.observableArrayList();
 		for (Topic topic : searchQueries.searchAllTopics()) {

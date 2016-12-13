@@ -18,6 +18,12 @@
 	-fx-padding: 5;
 }
 
+.text {
+	-fx-font: 15px Tahoma;
+    -fx-fill: black;
+	-fx-background-color: #75A6FE;
+}
+
 .CustomLongButton{
 	
 	-fx-text-fill: #000000;

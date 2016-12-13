@@ -15,6 +15,8 @@ public class IExtendedScene extends Scene {
 
 	public IExtendedScene(Stage primaryStage, Parent root) {
 		super(root);
+		primaryStage.setMaximized(true);
+		primaryStage.sizeToScene();
 		init(primaryStage);
 	}
 	
@@ -22,8 +24,6 @@ public class IExtendedScene extends Scene {
 		primaryStage.setTitle("BachelorUtilities");
 		primaryStage.setOpacity(0.92);
 		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-		primaryStage.setMaximized(true);
-		primaryStage.sizeToScene();
 		primaryStage.setResizable(false);
 		String cssFile = getClass().getResource("NewFile.css").toExternalForm();
 		getStylesheets().add(cssFile);

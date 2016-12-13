@@ -18,6 +18,8 @@ public class DetailListPane extends ScrollPane {
 	}
 
 	private void initComponents(TreeMap<LocalDate, Topic> dateTreeMap) {
+		if (null == dateTreeMap) return;
+		
 		for (LocalDate localDate : dateTreeMap.keySet()) {
 			contentBox.getChildren().add(new DateListPanelEntry(localDate, dateTreeMap.get(localDate)));
 		}

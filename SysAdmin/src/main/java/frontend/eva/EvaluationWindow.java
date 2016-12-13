@@ -2,16 +2,15 @@ package frontend.eva;
 
 import backend.database.dbClasses.Author;
 import backend.database.dbClasses.ExpertOpinion;
-import backend.database.dbClasses.Grade;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
-import frontend.LoginPane;
+import frontend.CustomText;
+import frontend.IExtendedScene;
 import generator.Generator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -26,34 +25,34 @@ import javafx.stage.Stage;
 
 public class EvaluationWindow extends Stage {
 
+	private Topic topic;
 	private GridPane grid = new GridPane();
-
 	private final ToggleGroup group = new ToggleGroup();
-	private RadioButton rbProject = new RadioButton("Projektarbeit");
-	private RadioButton rbBachelor = new RadioButton("Bachelorarbeit");
-	private RadioButton rbMaster = new RadioButton("Masterarbeit");
+	
+	private RadioButton rbProject = new RadioButton("Projektarbeit"),
+			rbBachelor = new RadioButton("Bachelorarbeit"),
+			rbMaster = new RadioButton("Masterarbeit");
 
 	private TextArea taProjectTitle = new TextArea();
 
-	private TextField tfAuthorLastName = new TextField("");
-	private TextField tfAuthorFirstName = new TextField("");
-	private TextField tfAuthorMatrNr = new TextField("");
-	private TextField tfAuthorCourse = new TextField("");
+	private TextField tfAuthorLastName = new TextField(""),
+			tfAuthorFirstName = new TextField(""),
+			tfAuthorMatrNr = new TextField(""),
+			tfAuthorCourse = new TextField(""),
+			
+			tfSupervisorLastName = new TextField(""),
+			tfSupervisorFirstName = new TextField(""),
+			tfProofReaderFirstName = new TextField(""),
+			tfProofReaderLastName = new TextField(""),
+			
+			tfSignings = new TextField("");
 
-	private TextField tfSupervisorLastName = new TextField("");
-	private TextField tfSupervisorFirstName = new TextField("");
-	private TextArea taSupervisorEva = new TextArea();
+	private TextArea taSupervisorEva = new TextArea(),
+			taProofReaderEva = new TextArea();
 
-	private TextField tfProofReaderFirstName = new TextField("");
-	private TextField tfProofReaderLastName = new TextField("");
-	private TextArea taProofReaderEva = new TextArea();
 
-	private TextField tfSignings = new TextField("");
-
-	private Button buttonOK = new Button("Generate");
-	private Button buttonCancel = new Button("Abbrechen");
-
-	private Topic topic;
+	private Button buttonOK = new Button("Generate"),
+			buttonCancel = new Button("Abbrechen");
 
 	public EvaluationWindow(Topic topic, Stage primaryStage) {
 		this(primaryStage);
@@ -100,34 +99,34 @@ public class EvaluationWindow extends Stage {
 		box.setAlignment(Pos.CENTER);
 		grid.add(box, 0, 0, 4, 1);
 
-		grid.add(new Label("Art der wiss. Arbeit"), 0, 1);
+		grid.add(new CustomText("Art der wiss. Arbeit"), 0, 1);
 		grid.add(rbProject, 1, 1);
 		grid.add(rbBachelor, 2, 1);
 		grid.add(rbMaster, 3, 1);
 
-		grid.add(new Label("Thema der Arbeit"), 0, 2);
+		grid.add(new CustomText("Thema der Arbeit"), 0, 2);
 		grid.add(taProjectTitle, 1, 2, 3, 3);
 
-		grid.add(new Label("Verfasser"), 0, 5);
+		grid.add(new CustomText("Verfasser"), 0, 5);
 		grid.add(tfAuthorLastName, 1, 5);
 		grid.add(tfAuthorFirstName, 2, 5);
 		grid.add(tfAuthorMatrNr, 3, 5);
 
-		grid.add(new Label("Studiengang"), 0, 6);
+		grid.add(new CustomText("Studiengang"), 0, 6);
 		grid.add(tfAuthorCourse, 1, 6, 3, 1);
 
-		grid.add(new Label("Betreuer"), 0, 7);
+		grid.add(new CustomText("Betreuer"), 0, 7);
 		grid.add(tfSupervisorLastName, 1, 7);
 		grid.add(tfSupervisorFirstName, 2, 7);
 
-		grid.add(new Label("Beurteilung"), 0, 8);
+		grid.add(new CustomText("Beurteilung"), 0, 8);
 		grid.add(taSupervisorEva, 1, 8, 3, 3);
 
-		grid.add(new Label("Zweitkorrektor"), 0, 11);
+		grid.add(new CustomText("Zweitkorrektor"), 0, 11);
 		grid.add(tfProofReaderLastName, 1, 11);
 		grid.add(tfProofReaderFirstName, 2, 11);
 
-		grid.add(new Label("Zweitkorrektur"), 0, 12);
+		grid.add(new CustomText("Zweitkorrektur"), 0, 12);
 		grid.add(taProofReaderEva, 1, 12, 3, 3);
 
 		HBox signBox = new HBox(10, new Label("Ort, Datum, Unterschrift"), tfSignings);
@@ -138,9 +137,7 @@ public class EvaluationWindow extends Stage {
 		hBox.setAlignment(Pos.CENTER_RIGHT);
 		grid.add(hBox, 0, 16, 4, 1);
 		
-		Scene scene = new Scene(grid, getWidth(), getHeight());
-		scene.getStylesheets().add(LoginPane.cssFile);
-		setScene(scene);
+		setScene(new IExtendedScene(this, grid, getWidth(), getHeight()));
 		show();
 	}
 

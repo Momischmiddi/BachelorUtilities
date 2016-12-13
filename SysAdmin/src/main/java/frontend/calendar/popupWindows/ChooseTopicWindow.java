@@ -4,13 +4,12 @@ import java.time.LocalDate;
 
 import backend.database.dbClasses.Topic;
 import backend.database.dbQueries.SearchQueries;
-import frontend.LoginPane;
+import frontend.IExtendedScene;
 import frontend.MainPane;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
@@ -33,10 +32,9 @@ public class ChooseTopicWindow extends Stage {
 		this.selectedDate = selectedDate;
 		setTitle("Projekt auswählen...");
 
-		setResizable(false);
 		initModality(Modality.APPLICATION_MODAL);
 		setWidth(500);
-		setHeight(400);
+		setHeight(500);
 		setX(x);
 		setY(y);
 
@@ -49,10 +47,7 @@ public class ChooseTopicWindow extends Stage {
 			}
 			list.setItems(items);
 		}
-		
-		Scene scene = new Scene(list, getWidth(), getHeight());
-		scene.getStylesheets().add(LoginPane.cssFile);
-		setScene(scene);
+		setScene(new IExtendedScene(this ,list, getWidth(), getHeight()));
 		show();
 	}
 

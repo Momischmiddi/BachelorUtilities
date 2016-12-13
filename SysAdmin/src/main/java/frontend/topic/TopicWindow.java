@@ -12,14 +12,13 @@ import backend.database.dbClasses.Topic;
 import backend.database.dbExceptions.NoTitleException;
 import backend.database.dbQueries.DeleteQueries;
 import backend.database.dbQueries.InsertQueries;
-import frontend.LoginPane;
+import frontend.IExtendedScene;
 import frontend.MainPane;
 import frontend.calendar.DatePickerExtended;
 import frontend.eva.EvaluationWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -123,9 +122,8 @@ public class TopicWindow extends Stage {
 		grid.add(taDescription, 1, 9);
 		
 		grid.add(new HBox(10,buttonGenerate, buttonOK, buttonCancel), 1, 10);
-		Scene scene = new Scene(grid, getWidth(), getHeight());
-		scene.getStylesheets().add(LoginPane.cssFile);
-		setScene(scene);
+		
+		setScene(new IExtendedScene(this, grid, getWidth(), getHeight()));
 		show();
 	}
 

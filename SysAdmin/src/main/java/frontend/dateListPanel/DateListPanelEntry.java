@@ -14,7 +14,6 @@ public class DateListPanelEntry extends HBox {
 		super(10);
 
 		setMaxWidth(100);
-	    setStyle("-fx-background-color: #6495ED;");
 
 	    Text title = new Text(topic.getTitle());
 	    title.setFont(Font.font ("Verdana", 20));
