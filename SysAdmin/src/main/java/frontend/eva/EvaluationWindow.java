@@ -1,11 +1,14 @@
 package frontend.eva;
 
+import java.io.File;
+
 import backend.database.dbClasses.Author;
 import backend.database.dbClasses.ExpertOpinion;
 import backend.database.dbClasses.SecondOpinion;
 import backend.database.dbClasses.Topic;
 import frontend.CustomText;
 import frontend.IExtendedScene;
+import frontend.MainPane;
 import generator.Generator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +23,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -112,7 +116,7 @@ public class EvaluationWindow extends Stage {
 		grid.add(tfAuthorFirstName, 2, 5);
 		grid.add(tfAuthorMatrNr, 3, 5);
 
-		grid.add(new CustomText("Studiengang"), 0, 6);
+		grid.add(new CustomText("Kurs"), 0, 6);
 		grid.add(tfAuthorCourse, 1, 6, 3, 1);
 
 		grid.add(new CustomText("Betreuer"), 0, 7);
@@ -218,6 +222,13 @@ public class EvaluationWindow extends Stage {
 	}
 
 	private void generateEva() {
+		DirectoryChooser chooser = new DirectoryChooser();
+		chooser.setTitle("JavaFX Projects");
+		File file = chooser.showDialog(this);
+		if(!file.isDirectory() || null == file) {
+			return;
+		}
+		
 		Topic topic = new Topic();
 		topic.setTitle(validateTopicInput());
 		topic.setAuthor(validateAuthorInput());
@@ -234,11 +245,16 @@ public class EvaluationWindow extends Stage {
 			
 		}
 		
+		
 		generator.generateErstgutachten(topic, "Erstgutachten", 
-				"C:\\Users\\Sebastian\\Desktop\\test.html",
-				tfSignings.getText(),
-				tfAuthorCourse.getText());
+				file.getAbsolutePath(),
+				tfSignings.getText().isEmpty() ? "Keine Unterschrift" : tfSignings.getText(),
+				tfAuthorCourse.getText().isEmpty() ? "Kein Kurs" : tfAuthorCourse.getText());
 		// TODO Generate LibreOffice Document generateDocument(Topic)
+		
+		if (null != MainPane.updateQueries) {
+			MainPane.updateQueries.updateTopic(topic);
+		}
 		close();
 	}
 

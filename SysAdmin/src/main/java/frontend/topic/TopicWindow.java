@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -46,6 +47,8 @@ public class TopicWindow extends Stage {
 			buttonGenerate = new Button("Beurteilung generieren"),
 			buttonDeleteDate = new Button("Zurücksetzen");
 
+	private CheckBox cbIsDone = new CheckBox("abgeschlossen");
+	
 	private TextArea taDescription = new TextArea("Projektbeschreibung....");
 	private InsertQueries insertQueries;
 	private DeleteQueries deleteQueries;
@@ -88,6 +91,7 @@ public class TopicWindow extends Stage {
 		extractExpertInfos(topic.getExpertOpinion());
 		extractProofReaderInfos(topic.getSecondOpinion());
 		taDescription.setText(description.isEmpty() ? "Keine Beschreibung angegeben" : description);
+		cbIsDone.setSelected(topic.isFinished() == 1);
 		
 		buttonOK.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -108,7 +112,7 @@ public class TopicWindow extends Stage {
 		grid.add(tfAuthorMatrNr, 1, 3);
 		
 		grid.add(new Label("Abgabe am"), 0, 4);		
-		grid.add(new HBox(10, dpEndDate, buttonDeleteDate), 1, 4);
+		grid.add(new HBox(10, dpEndDate, buttonDeleteDate, cbIsDone), 1, 4);
 		
 		grid.add(new Label("Betreuer"), 0, 5);
 		grid.add(tfLastName,1, 5);
@@ -150,7 +154,7 @@ public class TopicWindow extends Stage {
 			topic.setExpertOpinion(validateExpertOpinionInput());
 			topic.setSecondOpinion(validateProofReaderInput());
 			topic.setID(topic.hashCode());
-			topic.setFinished(0);
+			topic.setFinished(cbIsDone.isSelected() ? 1 : 0);
 			
 			if(null != insertQueries)
 			insertQueries.insertNewTopic(topic);
