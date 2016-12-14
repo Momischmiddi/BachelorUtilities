@@ -70,8 +70,15 @@ public class LoginPane extends StackPane {
 	}
 
 	private void login() {
+		if (checkLoginDetails()) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText("Benutzername + Passwort falsch");
+			alert.show();
+			return;
+		}
+		
 		ConnectionInit connectionInit = new ConnectionInit();
-		if (connectionInit.init()) {
+		if (connectionInit.init(tfID.getText(), pwField.getText())) {
 			new MainPane(primaryStage, connectionInit.getConnection());
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,7 +89,8 @@ public class LoginPane extends StackPane {
 		}
 	}
 
-	private void checkLoginDetails() {
-		btnLogin.setDisable(tfID.getText().isEmpty());
+	private boolean checkLoginDetails() {
+		btnLogin.setDisable(tfID.getText().isEmpty() );
+		return tfID.getText().isEmpty();
 	}
 }

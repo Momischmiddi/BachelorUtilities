@@ -16,14 +16,14 @@ public class ConnectionInit {
 
 	private DBConnection connection;
 
-	public boolean init() {
+	public boolean init(String username, String password) {
 		// TODO Auto-generated method stub
 		DBCredentials credentials = new DBCredentials();
 		credentials.setHostAdress("localhost");
 		credentials.setPort(3361);
 		credentials.setDatabase("BachelorUtilities");
-		credentials.setUsername("root");
-		credentials.setPassword("");
+		credentials.setUsername(username);
+		credentials.setPassword(password);
 		
 		DBOpenConnection openConnection = new DBOpenConnection();
 		try {
