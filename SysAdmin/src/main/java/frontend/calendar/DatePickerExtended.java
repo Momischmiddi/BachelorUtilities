@@ -62,8 +62,10 @@ public class DatePickerExtended extends DatePicker {
 			@Override
 			public void updateItem(LocalDate item, boolean empty) {
 				super.updateItem(item, empty);
-				String style = "-fx-min-height: 110px;"; 
+				String style = "-fx-min-height: 95px;"
+						+ "-fx-min-height: 95px;"; 
 				
+
 				if (dateTreeMap.containsKey(item)) {
 					Topic topic = dateTreeMap.get(item);
 					for (Date dateObject : topic.getDate()) {

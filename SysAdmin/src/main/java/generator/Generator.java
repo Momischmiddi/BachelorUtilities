@@ -46,8 +46,7 @@ public class Generator {
         root.put("course", course);
         root.put("SuperVisorLastName", topic.getExpertOpinion().getName());
         root.put("SuperVisorFirstName", topic.getExpertOpinion().getForename());
-        root.put("SuperVisorOpinionText", topic.getExpertOpinion().getOpinion()
-        		+ topic.getSecondOpinion().getOpinion());
+        root.put("SuperVisorOpinionText", topic.getExpertOpinion().getOpinion());
         root.put("Place", place);
         
         Writer out = null;
@@ -55,7 +54,7 @@ public class Generator {
 			Template temp = cfg.getTemplate("erstgutachten.ftlh");
 			/* Merge data-model with template */
 	        out = new BufferedWriter(new OutputStreamWriter(
-	                new FileOutputStream(path), "utf-8"));
+	                new FileOutputStream(path+"test.html"), "utf-8"));
 	        temp.process(root, out);
 		} catch (IOException e) {
 			
