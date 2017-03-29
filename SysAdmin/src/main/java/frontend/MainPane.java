@@ -32,7 +32,6 @@ public class MainPane extends StackPane {
 	private InsertQueries insertQueries;
 
 	
-	public MainPane(Stage primaryStage, DBConnection dbConnection) {
 		this.primaryStage = primaryStage;
 		primaryStage.setOnCloseRequest(closeEvent -> dbConnection.closeConnection());
 		
